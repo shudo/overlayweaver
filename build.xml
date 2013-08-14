@@ -104,6 +104,10 @@
 		<include name="**/CVS/**"/>
 		<include name="**/CVS"/>
 	</fileset>
+	<fileset dir="${basedir}" id="git.file" defaultexcludes="no">
+		<include name=".git/**"/>
+		<include name=".git"/>
+	</fileset>
 
 	<!-- targets -->
 
@@ -231,6 +235,7 @@
 		<delete includeemptydirs="true" quiet="true">
 			<fileset refid="eclipse.file"/>
 			<fileset refid="cvs.file"/>
+			<fileset refid="git.file"/>
 		</delete>
 		<defaultexcludes default="true"/>
 	</target>
