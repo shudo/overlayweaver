@@ -1,0 +1,23 @@
+timeoffset 2000
+
+# invoke a Message counter
+class ow.tool.msgcounter.Main
+schedule 0 invoke
+
+# invoke a node 5 times
+class ow.tool.dhtshell.Main
+#class ow.tool.mcastshell.Main
+arg -m emu0
+schedule 2000,1000,5 invoke
+
+# control
+schedule 10000,5000 control 0 status
+schedule 11000 control 2 init emu1
+schedule 12000 control 3 init emu1
+schedule 13000 control 4 init emu1
+schedule 14000 control 5 init emu1
+schedule 16000 control 1 setttl 600
+schedule 16010 control 1 setsecret secret
+schedule 16100 control 1 put foo bar
+schedule 17000 control 4 get foo
+schedule 21000 halt

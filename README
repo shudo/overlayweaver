@@ -1,0 +1,38 @@
+Overlay Weaver - An Overlay Construction Toolkit
+
+About
+-----
+
+Overlay Weaver is an overlay construction toolkit, which supports
+overlay algorithm designers in addition to application developers.
+
+For application developers, the toolkit provides a common API for
+higher-level services such as distributed hash table (DHT) and
+multicast.  Applications relying on the common API depend no specific
+transport protocol, database implementation and routing algorithm.
+
+The toolkit provides multiple routing algorithms, Chord, Kademlia,
+Koorde, Pastry, Tapestry and FRT-Chord.  These algorithms could be
+implemented only in hundreds lines of code because of routing layer
+decomposition.  Routing layer under the higher-level services has been
+decomposed into multiple components, routing driver, routing algorithm
+and messaging service.  The decomposition also facilitates
+implementation of a new algorithm.  A newly implemented algorithm can
+be tested, evaluated and compared on emulator, which can host hundreds
+of thousands of virtual nodes. It enables large-scale emulation and
+fair comparison between algorithms.
+
+Documentation
+-------------
+
+All documents are available on the project web site
+http://overlayweaver.sf.net/
+
+Licensing
+---------
+
+This software is licensed under the terms you find in the file named
+LICENSE in this directory.
+
+					Kazuyuki Shudo
+					http://www.shudo.net/

@@ -1,0 +1,18 @@
+#remote javapath /usr/local/java/jre/bin
+remote jvmoption -cp overlayweaver/target/overlayweaver.jar:overlayweaver/build -Djava.util.logging.config.file=overlayweaver/bin/logging.properties
+
+class ow.tool.msgcounter.Main
+schedule 0 invoke
+
+class ow.tool.dhtshell.Main
+arg -p 10000 -m emu0 -a Pastry -r Iterative
+schedule 0,1000,3 invoke
+
+schedule 0,5000 0 status
+schedule 0 control 2 init emu1
+schedule 3000 control 3 init emu1
+schedule 10000 control 1 put key000 value000
+schedule 11000 control 1 status
+schedule 15000 control 2 get key000
+schedule 16000 control 2 status
+schedule 20000 halt

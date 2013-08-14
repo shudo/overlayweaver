@@ -1,0 +1,24 @@
+class ow.routing.RoutingTest
+arg 0
+schedule 0 invoke
+
+arg 1
+schedule 1000 invoke
+
+arg 2
+schedule 2000 invoke
+
+arg 3
+schedule 3000 invoke
+
+#arg 4
+#schedule 4000 invoke
+
+#arg 5
+#schedule 5000 invoke
+
+#arg 6
+#schedule 6000 invoke
+
+#arg 100
+#schedule 7000,1000,10 invoke

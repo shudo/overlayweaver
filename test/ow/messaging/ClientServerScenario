@@ -1,0 +1,7 @@
+class ow.messaging.MsgTestServer
+arg 10000
+schedule 0 invoke
+
+class ow.messaging.MsgTestClient
+arg emu0
+schedule 1000 invoke

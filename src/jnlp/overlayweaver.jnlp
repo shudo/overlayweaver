@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<jnlp
+    spec="1.0+"
+    codebase="@@jnlp.codebase@@"
+    href="overlayweaver.jnlp">
+
+  <information>
+    <title>Demonstration of Overlay Weaver</title>
+    <vendor>Kazuyuki Shudo</vendor>
+    <description>Emulator runs an Overlay Visualizer and multiple DHT shell instances</description>
+    <offline-allowed/>
+  </information>
+
+  <security>
+    <all-permissions/>
+  </security>
+
+  <resources>
+    <j2se version="1.5+"/>
+    <jar href="overlayweaver-signed.jar"/>
+<!--
+    <jar href="commons-cli-1.1-signed.jar"/>
+-->
+
+<!--
+    <property name="" value=""/>
+-->
+  </resources>
+
+  <application-desc main-class="ow.tool.emulator.Main">
+    <argument>@@jnlp.codebase@@DemoScenario</argument>
+  </application-desc>
+
+</jnlp>

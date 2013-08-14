@@ -1,0 +1,2926 @@
+2013-06-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.1.7 to 9.0.3.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 5.0.58 to 5.0.73.
+
+2012-11-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{dhtshell,mcastshell,memcached}/Main.java
+	Main classes do not implement Interruptible.
+
+2012-11-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Expiring{Set,Map}.java
+	Instantiates only a thread for each set/map at most.
+
+	* src/ow/{tool/emulator/{EmulatorContext,action/InvocationTask},util/concurrent/*}.java
+	A thread pool was moved to SingletonThreadPoolExecutors.
+
+	* src/ow/routing/impl/*RoutingDriverProvider.java
+	AbstractRoutingDriverProvider class was removed.
+
+2012-10-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.10.4 released.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.1.6 to 8.1.7.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	RoutingDrivers do not call RoutingAlgorithm#touch()
+	for a joining node in default.
+	But, they call touch() when running Kademlia.
+	The behavior can be configured by modifying
+	<each algorithm>Configuration#insertJoiningNodeIntoRoutingTables().
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	NullPointerException with Java 7 was resolved.
+
+2012-09-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* build.xml
+	Stop specifying target VM specification as 5.
+	Because today's common JRE is Java 7
+	and it cannot generate class files for Java 5.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.1.4 to 8.1.6.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 5.0.55 to 5.0.58.
+
+2012-07-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.1.2 to 8.1.4.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 5.0.34 to 5.0.55.
+
+2012-03-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.0.4 to 8.1.2.
+
+2011-12-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 8.0.1 to 8.0.4.
+
+2011-12-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.1.10 to 5.0.34.
+
+2011-09-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.4.5 to 8.0.1.
+
+2011-08-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.3.1 to 7.4.5.
+
+2011-04-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/*/*Sender.java
+	Emulator works over multiple computers (distributed emulator) again.
+
+2011-04-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.10.3 released.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.1.7 to 4.1.10.
+
+	* src/ow/messaging/Message{,Directory}.java
+	A tag in a Message was reverted to 7 bit from 32 bit.
+
+2011-04-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/Message.java
+	The 1st argument of a constructor of Message was removed.
+
+	* src/ow/id/IDAddressPair.java
+	Changed IDAddressPair to implements MessagingAddress.
+	This change enables a Messaging service
+	to hold an IDAddressPair as a MessagingAddress.
+
+2011-04-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.2.2 to 7.3.1.
+
+	* src/ow/messaging/MessageDirectory.java
+	MessageDirectory class traverses classes to find and register
+	subclasses of Message.
+
+2011-03-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{MessageDirectory,Message}.java
+	Message tag was changed from a serial number
+	to a hash result of the message name.
+
+2011-03-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Class{Traverser,Processor}.java
+	Utility classes to traverse class dependency were provided.
+
+2011-03-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/{ow/messaging/MessageDirectory,**/{*MessageFactory,*Message}}.java
+	The way to instantiate and parse a message was changed.
+	It is now type-safe.
+
+2011-01-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/frtchord/RoutingTable.java
+	In FRT-Chord, calculation of removal priority was changed.
+	It now conform to the current algorithm.
+	Insert() and remove() were changed.
+
+	* 0.10.2 released.
+
+	* src/ow/routing/frtchord/FRTChordConfiguration.java
+	One-hop DHT flag was disabled.
+	Its current implementation occasionally
+	yields long routing path length with a large number of nodes,
+	and requires improvement.
+
+2011-01-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/frtchord/RoutingTable.java
+	A bug in remove() was fixed.
+	The target of ID interval recalculation was incorrect.
+	Thanks Takenori Miyao <miyao.t.aa at gmail.com>.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.2.1 to 7.2.2.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.1.6 to 4.1.7.
+
+2010-11-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.10.1 released.
+
+	* src/ow/messaging/upnp/UPnPManager.java
+	Sets XML parser explicitly.
+
+	* lib/clink{170,200}.jar
+	CyberLink for Java was updated from 1.7 to 2.0.
+
+2010-11-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.2.0 to 7.2.1.
+
+2010-11-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/{Basic,ChurnTolerant}DHTImpl.java
+	Corrected the order of invocation of constructors and init() of
+	these two classes.
+	BasicDHTImpl's constructor called Churn...#init()
+	and later Churn...'s constructor initialized Churn...'s fields.
+	The order caused problems such as a reputter not working.
+	Thanks Ryohei Banno <r_banno at complex.eng.hokudai.ac.jp>.
+
+2010-11-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XMLRPCServer.java
+	Uses IPInfoDB API v2.
+	Shows national flags on a map.
+
+2010-11-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.10 released.
+
+	* src/ow/routing/chord/ChordInAggressiveMode.java
+	Uses a thread pool instead of creating a new Thread.
+
+2010-11-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/**/*.java
+	Reduced the number of times a ClassCastException instance is created.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.0.103 to 4.1.6.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.1.6 to 7.2.0.
+
+2010-11-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{routing/frtchord/RoutingTable,util/Timer}.java
+	Efficiency improved.
+	Reduced the number of times a ClassCastException instance is created.
+	Combination of recursive routing and FRT-Chord
+	takes much time to run on Emulator.
+	It was due to the cost of Exception instantiation.
+	The cost is very high because method call nests deeply.
+
+	* src/ow/routing/impl/{RecursiveRoutingDriver,RoutingDriverMessageFactory}.java
+	Refactored.
+	Code related to forwardOrReturnResult() was simplified.
+
+2010-11-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{id/ID,dht/memcached/Item}.java
+	Fixed a bug.
+	Externalizable#readExternal() reads bytes with readFully(), not read().
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Object#wait() and Object#notify() on a mark object (nullMsg),
+	not the whole table.
+
+	* src/ow/routing/impl/{RecursiveRoutingDriver,RoutingDriverMessageFactory}.java
+	Introduced "routingID" to RecursiveRoutingDriver.
+	It identifies routing requests to the same target ID
+	from various threads.
+
+	* src/ow/messaging/emulator/EmuMessageReceiver.java
+	Emulator Messaging service executes MessageHandler#postProcess()
+	directly instead of submitting it to a thread pool.
+	This change improves efficiency and fixes the order of
+	execution of postProcess() and returninig a value.
+	Executes postProcess() and returns a value.
+
+	* src/ow/routing/frtchord/FRTChord.java
+	Efficiency improved.
+	Reduced the number of times normalized ID is calculated.
+
+	* src/ow/routing/{linearwalker/LinearWalker,frtchord/FRTChord}.java
+	A node running FRT-Chord, LinearWalker and its variants
+	contacts its successor and predecessor just after joined an overlay.
+	It allows the node to know its correct successor at that time.
+
+2010-11-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/mcast/impl/McastImpl.java
+	Fixed a bug.
+	A Mcast node forwarded a multicasted message to the node itself.
+	Thanks Ryohei Banno <r_banno at complex.eng.hokudai.ac.jp>.
+
+	* src/ow/routing/pastry/Pastry.java
+	A Pastry node checks and updates its leaf set periodically.
+	This process is not described in any paper.
+
+2010-11-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{linearwalker/{LinearWalker,SuccessorList},chord/AbstractChord,koorde/Koorde}.java
+	Chord-like algorithms (LinearWalker, Chord, Koorde) were changed
+	not to rely on RoutingAlgorithm#adjustRoot(),
+	but utilizes RoutingContext.
+
+2010-11-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{dhtshell/command/InitCommand,util/shellframework/CommandUtil}.java
+	Init command of DHT shell accepts a "-status" option.
+
+2010-10-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/ChordInAggressiveMode}.java
+	A field "algorithm" was removed.
+
+2010-10-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/frtchord/{FRTChord,RoutingTable}.java
+	FRT-Chord implementation was fixed.
+
+2010-10-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{frtchord/*,RoutingAlgorithmFactory}.java
+	A routing algorithm FRT-Chord was implemented.
+
+2010-09-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/CallbackResultFilter.java
+	Abolished.
+
+2010-08-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.11 released.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.1.5 to 7.1.6.
+
+	* src/ow/messaging/{Message,tcp/{ConnectionPool,TCPMessage{Receiver,Sender},TCPMessagingConfiguration}}.java
+	TCP Messaging service closes connections on both sides,
+	a receiver and a sender by timeout.
+	This change solves a reported problem in which
+	half-closed connections in CLOSE_WAIT state remain
+	and they consume descriptors.
+	A receiver did not close connections and the problem was raised.
+	The problem could be worked around
+	by setting a lower value to /proc/sys/net/ipv4/tcp_keepalive_time.
+	But it is not a good solution
+	because tcp_keepalive_time is a system-wide parameter.
+	Thanks Susanna Martinelli <susanna.martinelli at isti.cnr.it>.
+
+	* src/ow/messaging/tcp/ConnectionPool.java
+	Fixed the judgment on whether the pool is full or not.
+
+2010-07-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.1.4 to 7.1.5.
+
+	* src/ow/tool/dhtshell/XMLRPCServer.java
+	Uses Google Maps JavaScript API V3.
+	It has used API V2 so far.
+
+2010-07-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.0.2 to 7.1.4.
+
+2010-07-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{messaging/{util/MessagingUtility,emulator/EmuMessagingAddress},tool/mrouted/ForwarderAddress}.java
+	Hash code generation algorithm (hashCode()) was changed.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver,RoutingDriverMessage}.java
+	Message formats of *_JOIN messages were changed.
+
+2010-05-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{messaging/emulator/Emu{HostID,Mess{ageReceiver,aging{Address,Configuration}}},routing/impl/AbstractRoutingDriver}.java
+	Memory consumption was reduced.
+
+2010-05-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.10 released.
+
+2010-05-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	The constructor does not call JVMLifeKeeper#keep(true).
+	It disturbed a node (a DHT shell / a Mcast shell) to exit.
+	Note that a node on an emulator exit normally.
+
+	* lib/commons-cli-*.jar
+	Apache Commons CLI was updated from 1.1 to 1.2.
+
+2010-05-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/xmlrpc-*.jar
+	Apache XML-RPC was updated from 3.1.2 to 3.1.3.
+
+2010-05-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Does not adjust the responsible node to the joining node itself.
+	The problem appears when a node leaves and joins again.
+	Thanks Koji Eto <etokoji at gmail.com>.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Adds a null check to adjustment process of the responsible node.
+
+2010-05-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.0.92 to 4.0.103.
+
+2010-04-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.0.1 to 7.0.2.
+
+2010-04-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{impl/ChurnTolerantDHTImpl,DHTConfiguration}.java
+	Limits the number of keys to be reput in a unit of time.
+	In case the parameter is { 3000, 3, 10 },
+	3 keys are reput per 3000 msec
+	and the reputting process restarts every 3000 * 10 msec.
+
+	* src/ow/dht/impl/ChurnTolerantDHTImpl.java
+	Reduces fields of Reputter inner class.
+	It will save memory.
+
+2010-03-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.9 released.
+
+2010-03-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/AbstractRoutingDriver.java
+	Improves performance in case no ExtendedMessageHandler is added.
+
+2010-03-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 4.0.71 to 4.0.92.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	The last node on a route adds joining nodes to its routing table.
+
+	* src/ow/routing/impl/AbstractRoutingDriver.java
+	Fixed a bug.
+	MessageHandler it provides calls postProcess().
+
+2010-03-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/tapestry/Tapestry.java
+	Replaces calls to touch(p) with calls to routingTable.merge(p).
+
+	* src/ow/routing/pastry/Pastry.java
+	A joining node sents its status (only its own IDAddressPair) to
+	all nodes on its routing table
+	**only** after it receives UPDATE_ROUTING_TABLE message
+	from the final hop on the joining route.
+
+2009-12-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/tcp/ConnectionPool.java
+	Closes a socket even in case that the pool size is 0.
+	Thanks Sano <omotas_00 at yahoo.co.jp>.
+
+2009-12-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.8 released.
+
+	* src/ow/util/Timer.java
+	Timing to update the status of JVMLifeKeeper was changed.
+
+2009-12-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/ShellServer.java
+	PrintServer dequeues multiple messages once,
+	concatenate them and write the result to streams.
+
+2009-12-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Timing to remove the current task from tables was changed.
+	This change allows the task to cancel itself.
+	This bug prohibited a task which resubmitted itself being canceled.
+
+	* src/ow/mcast/impl/{NeighborTable,McastImpl}.java
+	An ExpiringTask (formerly a daemon) wakes only when it works.
+	It depends on Timer now.
+
+	* src/ow/mcast/impl/{McastImpl,GroupSet}.java
+	Starts daemons when joining a group for the first time.
+
+	* src/ow/tool/util/shellframework/ShellServer.java
+	Creates PrintServer thread per JVM, not ShellServer instance.
+
+	* src/ow/mcast/impl/McastImpl.java
+	Uses Timer class'es singleton instead of creating Thread instances.
+
+2009-12-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 7.0.0 to 7.0.1.
+
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.87 to 4.0.71.
+
+2009-11-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/tcp/ConnectionPool.java
+	Does not pool connections if the size <= 0.
+	Size check moved from get() to put().
+
+2009-10-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.7 released.
+
+	* src/ow/directory/inmemory/SingleValueHashDirectory.java
+	An inner class for an internal map (rawMap) was changed
+	from anonymous inner class to "static" inner class.
+	Otherwise, SingleValueHashDirectory is also serialized
+	when the map is serialized.
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 6.1.20 to 7.0.0.
+
+	* src/ow/{dht/impl/BasicDHT,mcast/impl/Mcast}Impl.java
+	Initilizes all fields in init() method.
+	Thanks Ryohei Sakano <r2b2 at ric.hi-ho.ne.jp>.
+
+2009-09-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/concurrent/SingletonThreadPoolExecutors.java
+	ThreadPool API was changed.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Querier (iterative) and Forwarder (recursive) invoke call() method
+	directly by themselves if a thread pool is full.
+	Deadlock occurs if they wait for a spare thread
+	because the method invocation is recursive.
+
+2009-09-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.6 released.
+
+2009-09-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/{Main,EmulatorContext}.java
+	Emulator (owemu) supports --eventdriven option.
+
+	* src/ow/util/Timer.java
+	A possible bug in thread management was fixed.
+
+	* src/ow/util/Timer.java
+	SERIAL_BEST_EFFORT_MODE provided.
+	In the mode, the Timer proceeds with the next task without sleeping.
+
+	* src/ow/util/Timer.java
+	Timer class provides currentTimeMillis() methods,
+	which is based on the Timer.
+	Other many classes use it now.
+
+2009-09-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/{Timer,JVMLifeKeeper}.java
+	JVM lasts for several seconds though all non-daemon threads finished.
+	This function was moved from ow.tool.EmulatorContext.
+
+	* src/ow/{util/{Timer,AlarmClock},dht/impl/ChurnTolerantDHTImpl,directory/expiration/AbstractExpiringDirectory,routing/impl/AbstractRoutingAlgorithm,tool/emulator/EmulatorContext}.java
+	Uses Timer class'es singleton.
+
+	* src/ow/util/{Timer,JVMLifeKeeper}.java
+	Timer uses JVMLifeKeeper, which keep / stop keeping the JVM alive.
+	All Timer threads themselves are daemon threads.
+
+	* src/ow/util/Timer.java
+	Does not interrupt (Thread#interrupt()) a Timer thread.
+	This bug can cause a trouble by interupting
+	a Timer thread performing an usual task.
+
+2009-09-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.5 released.
+
+2009-09-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/msgcounter/{MessageCounter,commands/StatusCommand}.java
+	Messagge Counter's status command supports -v (verbose) option.
+
+2009-09-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{dht/{*,impl/*},directory/{*,expiration/*}}.java
+	The type of TTL for key-value pairs on a DHT was reverted
+	from int to long.
+	See 2009-04-25.
+
+	* src/ow/messaging/upnp/UPnPManager.java
+	Support more routers.
+	Thanks syuu.
+
+	* lib/{jetty{,-util}-6.1.*}.jar
+	Jetty was updated from 6.1.19 to 6.1.20.
+
+	* src/ow/messaging/tcp/ConnectionPool.java
+	Closes a socket when a pool is full and removing it from the pool.
+	Thanks Sano <omotas_00 at yahoo.co.jp>.
+
+2009-08-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.82 to 3.3.87.
+
+2009-07-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{jetty{,-util}-6.1.*}.jar
+	Jetty was updated from 6.1.18 to 6.1.19.
+
+2009-06-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Changes the geo location service URL
+	from iplocationtools.com to ipinfodb.com.
+
+2009-05-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{jetty{,-util}-6.1.*}.jar
+	Jetty was updated from 6.1.17 to 6.1.18.
+
+2009-05-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Uses JSON API at iplocationtools.com instead of www.nitinh.com.
+
+2009-05-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.4 released.
+
+	* lib/je-3.3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.75 to 3.3.82.
+
+2009-05-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/{Main,XmlRpcDHTServer}.java
+	DHT shell accepts '-M' option to show a map with Google Maps.
+
+	* src/ow/tool/dhtshell/Main.java
+	Letters for a few options were changed.
+	'-x' and '--xmlrpc' were changed to '-X' and '--web'.
+
+	* src/ow/dht/impl/BasicDHTImpl.java
+	Fixed a bug.
+	In collective forwarding, all key-value pairs
+	were put on all target nodes.
+
+	* src/ow/routing/pastry/Pastry.java
+	Fixed a bug.
+	A message handler for a REQ_ROUTING_TABLE_ROW message
+	returned the received row instead of the node's own row.
+
+2009-05-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.3 released.
+
+2009-05-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Timer#cancel() did not work for the next task.
+	This bug disturbs UDP/TCP communication (sendAndReceive()).
+	Fixed.
+
+	* src/ow/tool/dhtshell/command/{Put,Get,Remove}.java
+	Put, get and remove commands of DHT shell accept a "-status" option.
+	They show status of the node as same as "status" command.
+
+	* src/ow/routing/RoutingServiceConfiguration.java
+	TTL of routing decreased from 128 to 160.
+	Koorde and Pastry caused "TTL expired" in 300,000 nodes emulation.
+
+2009-05-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* bin/owemu{,.bat}
+	Give an option "-XX:newRatio=12" to 64 bit JVM
+	to reduce the number of full GC.
+	This change shortened the time to emulate 300,000 nodes
+	with Koorde and iterative forwarding from 22 hours 24 min to 45 min.
+
+2009-05-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/CommandUtil.java
+	The "status" command of DHT shell could throw NullPointerException.
+	Fixed.
+
+	* 0.9.2 released.
+
+	* lib/xmlrpc-*.jar
+	Apache XML-RPC was updated from 3.1.1 to 3.1.2.
+
+	* lib/{jetty{,-util}-6.1.*}.jar
+	Jetty was updated from 6.1.16 to 6.1.17.
+
+2009-04-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/chord/Chord.java
+	Chord#closestTo() (n.closest_preceding_finger(id) in Chord paper)
+	was improved.
+	It could return the second best node in a finger table so far.
+	This change will reduce the length of routing path.
+
+2009-04-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	How a RoutingTableMaintainer takes intervals was changed.
+
+2009-04-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/concurrent/GlobalThreadPoolExecutors.java
+	This class provides singleton thread pools,
+	which are shared globally.
+
+	* src/ow/util/Timer.java
+	Timer#getSingletonTimer() was abolished.
+
+	* src/ow/messaging/emulator/EmuMessag{ingConfiguration,eReceiver,eSender}.java
+	Emulator Messaging service emulates communications failure.
+	See DEFAULT_COMMUNICATION_FAILURE_RATE in ...Configuration.java.
+
+	* src/ow/{messaging/MessagingFactory,util/concurrent/ConcurrentNonBlockingThreadPoolExecutor}.java
+	The type of thread pool was changed.
+	A new thread is created when a task is submitted.
+	The submitted task is queued if no thread is available.
+	Then a task-submitting thread is not blocked.
+
+	* src/ow/routing/{impl/AbstractRoutingAlgorithm,linearwalker/LinearWalker,chord/Chord,pastry/Pastry}.java
+	Algorithm classes uses their own Timer instance,
+	not using Timer.getSingletonTimer().
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	In collective forwarding,
+	the first forked route is handled by the original thread.
+	It is an optimization to reduce the number of threads.
+
+	* src/ow/util/concurrent/ConcurrentBlockingThreadPoolExecutor.java
+	It is now an independent class, which was separated from ow.util.Timer.
+
+	* src/ow/tool/emulator/commands/AbstractControlCommand.java
+	"control" and "controlserially" commands of Emulator support
+	the string "inf..." as a time specification.
+	It means infinity.
+
+2009-04-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Task-submitting thread is blocked
+	if no thread available in the thread pool.
+
+	* src/ow/{dht/{*,impl/*},directory/{*,expiration/*}}.java
+	The type of TTL for key-value pairs on a DHT was changed
+	from long to int.
+	It saves memory usage.
+
+	* src/ow/util/Timer.java
+	The number of threads in a thread pool (see 2008-04-21) was changed
+	from 32 to 8.
+
+	* src/ow/util/ClockJumpAwareSystem.java
+	ow.util.ClockJumpAwareSystem class was abolished.
+
+	* src/ow/util/Timer.java
+	A Timer detects overload and clock jumps by itself.
+	It does not rely on ClockJumpAwareSystem class no longer.
+
+2009-04-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde{,Configuration}.java
+	Maximum interval of edge fixing processes were changed
+	from 128 sec to 256 sec.
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	Maximum interval of stabilizations was changed
+	from 64 sec to 128 sec.
+
+2009-04-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Thread pools were enabled.
+	See 2009-04-16.
+
+	* src/ow/routing/koorde/Koorde{,Configuration}.java
+	Intervals of edge fixing processes were changed.
+	In the previous method, 10, 20, 30, ... and 120 sec,
+	but in the current method, 1, 2, 4, ... and 128 sec.
+
+2009-04-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9.1 released.
+
+2009-04-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Thread pools were disabled to ensure that
+	it detects overload and clock jumps.
+	This change limits exploited parallelism
+	but enables ordered execution of an emulation scenario.
+	It improves emulation results much.
+	Future work includes exploiting parallelism by thread pools
+	and ordered execution of joining processes of Tapestry nodes
+	(Acknowledged Multicast).
+
+2009-04-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Thread pools use SynchronousQueue instead of LinkedBlockingQueue.
+	It make a Timer thread pause if all threads in the pool
+	and causes clock jumps.
+
+2009-04-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/{commands/*Control*Command,Main}.java
+	Emulator supports "controlserially" command.
+	It does not use a thread pool and it is executed by a Timer itself.
+
+	* src/ow/{util/Timer,messaging/{MessagingFactory,*/*Provider},routing/impl/*RoutingDriver}.java
+	Accurately propagates daemon/non-daemon attribute of a Thread
+	to derivative threads.
+	Now a "halt" command is not required in an emulation scenario.
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/Chord,koorde/Koorde,pastry/Pastry}.java
+	A repeated process invoked by a Timer is executed
+	concurrently with the Timer thread.
+
+2009-04-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/EmulatorContext.java
+	"control" command uses a thread pool.
+	The command is executed by a thread in the pool.
+	It allows an emulator to execute multiple "control" command in parallel.
+
+	* src/ow/util/Timer.java
+	Another version of Timer#schedule() methods is provided.
+	It specifies the submitted task is executed
+	concurrently with the Timer thread.
+
+2009-04-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/{action/HaltTask,EmulatorContext}.java
+	"halt" command of emulator stops the timer to exit immediately.
+
+2009-04-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/action/InvocationTask.java
+	Directly instantiates and calls invoke() methods of
+	an EmulatorControllable instance
+	instead of leaving them to another thread.
+	This change serializes instantiations of those instances
+	and avoids inconsistency between virtual hostname and host ID
+	of nodes on an emulator.
+
+	* src/ow/{messaging/MessagingFactory,util/Timer}.java
+	Uses fixed thread pools instead of cached thread pools.
+	OutOfMemoryError due to excess number of threads happened
+	in 300,000 nodes emulation.
+
+2009-04-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessage{Receiver,Sender}.java
+	Efficiency of Emulator messaging service was improved.
+
+2009-04-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{jetty{,-util}-6.1.*}.jar
+	Jetty was updated from 6.1.15 to 6.1.16.
+
+2009-03-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/CommandUtil.java
+	"status" command accepts a verboseLevel option.
+
+2009-03-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/CommandUtil.java
+	"status" command of DHT and Mcast shells, and memcached returns
+	the number of messages per message and per bundle.
+
+2009-03-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/CommandUtil.java
+	Operations for "help", "init", "source" and "status" commands were
+	collected in this CommandUtil class,
+	and DHT, Mcast and memcached use this utility class.
+
+	* src/ow/{{dht/DHT,mcast/Mcast},util/HighLevelService}.java
+	A super interface HighLevelService which is common to DHT and Mcast
+	was introduced.
+
+	* src/ow/tool/{{dht,mcast}shell,memcached}/commands/StatusCommand.java
+	"status" command of the shells shows all triplets of
+	last keys, routes and root candidates.
+
+2009-03-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/directory/*
+	Directories based on ow.directory.inmemory,
+	"VolatileMap" and "PersistentMap" support LRU expiration.
+	Now it is the default configuration.
+	So far, a put key-value pair was ignored
+	if a node does not have enough memory.
+	See 2008-06-13.
+
+2009-03-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{jetty{,-util}-6.1.*,servlet-api-2.5-20081211}.jar
+	Jetty was updated from 6.1.14 to 6.1.15.
+
+2009-01-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* bin/*.bat
+	Batch files for Windows support installation path including spaces.
+
+2008-12-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/memcached/{command/InitCommand,Main}.java
+	Memcached implements an "init" command.
+
+2008-12-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.9 released.
+
+2008-12-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.12 to 6.1.14.
+
+	* lib/je-3.3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.74 to 3.3.75.
+
+2008-11-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/SuccessorList.java
+	The length is unlimited if 0 or a value less than 0 is specified
+	as an argument of the constructor.
+
+2008-11-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/Shell.java
+	A shell correctly handles an EOF.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.11 to 6.1.12.
+
+	* src/ow/{oasis/,tool/dhtshell/Main.java}
+	A DHT shell responds to queries from OASIS replicas
+	if --oasis <port> option is given.
+
+2008-11-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* bin/owmemcached,src/ow/{dht/memcached/,tool/memcached}
+	A memcached server based on Overlay Weaver was implemented.
+
+	* lib/je-3.3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.69 to 3.3.74.
+
+2008-10-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/id/IDUtility.java
+	An ow.tool.dhtshell.Utility class was moved and renamed
+	to ow.id.IDUtility.
+
+	* src/ow/dht/impl/{DHTMessageFactory,*DHTImpl}.java
+	PUT, REMOVE and PUT_ON_CONDITION messages carry
+	DHT.PutRequest, DHT.RemoveRequest and Memcached.PutRequest objects
+	instead of ID[] key, V[][] values.
+
+2008-10-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/Shell{,Context}.java
+	A ShellContext instance provides an InputStream which it reads from
+	via getInputStream() method.
+
+2008-10-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/util/shellframework/*.java
+	Allows us to specify a prompting message and a no-command message
+	to the shell framework.
+
+2008-10-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.9 released.
+
+2008-10-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* native/ipmulticast/glue.c
+	A class name was corrected from Multicast to IPMulticast.
+
+	* src/ow/dht/impl/*DHTImpl.java
+	A DHT accepts a single value for a single key
+	if an option DHTConfiguration#getMultiValuesForASingleKye() is false.
+
+2008-10-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/{Basic,ChurnTolerant}DHTImpl.java
+	Tag.{PUT_REPLICAS,REMOVE_REPULICAS} were abolished and
+	integrated to PUT and REMOVE.
+
+	* src/ow/dht/impl/{Basic,ChurnTolerant}DHTImpl.java
+	The full-featured DHT impl was seprated to
+	a basic DHT impl and a churn-tolerant DHT impl.
+	The separation is not complete. For example, BasicDHTImpl provides
+	replication-related features in putOrRemoveRemotely().
+
+2008-09-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/xmlrpc-*.jar, lib/ws-commons-util-1.0.?.jar
+	Apache XML-RPC was updated from 3.0 to 3.1.1 (from SVN).
+
+2008-08-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.3.62 to 3.3.69.
+
+2008-06-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.8 released.
+
+2008-06-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.10 to 6.1.11.
+
+	* lib/je-3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.76 to 3.3.62.
+
+	* src/ow/dht/impl/StandardDHT{Provider,Impl}.java
+	StandardDHT was renamed to FullFeaturedDHT.
+
+2008-06-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/{CHT,StandardDHT}Impl.java
+	A DHT node checks free memory and does not save a key-value pair
+	if a node does not have enough memory.
+	This change prevents OutOfMemoryError caused by excessive items
+	though it is not perfect.
+
+	* src/ow/directory/*{,Dup}Directory.java
+	Directory and DupDirectory provide isInMemory() method.
+
+2008-05-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.7 released.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.9 to 6.1.10.
+
+2008-05-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/kademlia/KBucket.java
+	A k-bucket uses ArrayList instead of LinkedList
+	to reduce memory consumption.
+
+	* src/ow/routing/plaxton/RoutingTableRow.java
+	The number of fields reduced.
+	This change reduces memory consumption.
+
+2008-05-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/commands/{{Schedule{,daemon},Timeoffset}Command}.java
+	"Schedule", "scheduledaemon" and "timeoffset" commands
+	recognizes "+<time>" as a time specification.
+
+	* src/ow/tool/emulator/{EmulatorContext,action/InvocationTask}.java
+	The JVM exits if an application invoked in an Emulator throws a
+	VirtualMachineException including an OutOfMemoryException.
+
+2008-05-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/scenariogen/commands/{Get,Put,Mputget}Command.java
+	These commands generates "k<n>" as a key and "v<n>" as a value.
+	They were chagend from "key<n>" and "value<n>".
+
+2008-05-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessage{Receiver,Sender}.java
+	An EmuMessageReceiver instance has a singleton EmuMessageSender
+	instance.
+
+	* src/ow/tool/util/shellframework/{Shell,ShellServer}.java
+	Does not generate commandTable and commandList by itself.
+	Shell and ShellServer instances share them.
+
+	* src/ow/routing/plaxton/RoutingTableRow.java
+	Instantiates the body (IDAddressPair[]) lazily.
+	This change reduces memory consumption.
+
+	* build.xml
+	A building process generates classfiles compatible with Java 5.
+
+2008-05-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.6 released.
+
+	* src/ow/messaging/{udp/UDP,tcp/TCP}MessageReceiver.java
+	{UDP,TCP}MessageReceiver could get into a deadlock in a case, for
+	example, a put operation tries to place replicas.
+	Fixed.
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Web interface recoginizes a RoutingException thrown and shows it.
+
+	* src/ow/dht/impl/CHTImpl.java
+	With CHT, DHT#put does not throw an Exception now.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	DHT#put,get,remove with a single key throws RoutingException
+	if a node fails in routing.
+
+2008-05-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/id/IDAddressPair.java
+	The equals() method returned false even though addr fields match
+	if id fields are null.
+	A node tries to send a message to the initial contact infinitely
+	if it failed to receive a reply when joining.
+	Fixed.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	A message handler forwards a routing request in concurrent with
+	returning a reply. Otherwise, routing can get into a deadlock if
+	the route crosses a node more than twice.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Part of the routing process did not refer to the black list
+	and a node continues to try to communicate with a failed node.
+	Fixed.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	Clears the last keys and routes if all routing failed.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	A termination process could get into an infinite loop.
+	Fixed.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Iterative routing driver implements routing timeout.
+
+	* src/ow/{messaging/Messaging,routing/Routing}Configuration.java
+	Messaging timeout was changed from 10 sec to 5 sec.
+	Routing timeout was changed from 60 sec to 30 sec.
+
+2008-05-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{dht/impl/StandardDHTImpl,routing.{RoutingResult,RoutingHop}}.java
+	Strips RoutingContext instances from a RoutingResult instance.
+	This should reduce memory consumption of a DHT running Koorde.
+
+2008-05-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.5 released.
+
+	* src/ow/routing/impl/AbstractRoutingAlgorithm.java
+	Provides a filed 'Random random' for subclasses.
+
+	* src/ow/messaging/{emulator/Emu,udp/UDP,tcp/TCP}MessageSender.java
+	The number of fields in *Sender classes were reduced.
+
+2008-05-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessage{Receiver,Sender}.java
+	EmuMessage was abolished.
+	This change reduced the number of generated instances.
+
+	* src/ow/mcast/impl/McastImpl.java
+	ACK_CONNECT and NACK_CONNECT messages are instantiated once and reused.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	A NOTIFY_JOINING_NODE message is instantiated once and reused.
+
+	* src/ow/routing/koorde/Koorde.java
+	A REQ_PREDECESSOR message is instantiated once and reused.
+
+	* src/ow/routing/chord/ChordInAggressiveJoiningMode.java
+	An ACK_FINGER_TABLE message is instantiated once and reused.
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	A REQ_SUCCESSOR message is instantiated once and reused.
+
+2008-05-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Abstract,Recursive}RoutingDriver.java
+	PING, ACK and REC_ACK messages are instantiated once and reused.
+
+	* src/ow/routing/pastry/Pastry.java
+	Pastry#closestTo() can return nodes from the leaf set even if the
+	leaf set does not cover the target of routing.
+	This change prevents a loop in routing.
+
+2008-05-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/kademlia/Kademlia.java
+	Instantiates k-buckets lazily.
+	This change reduces memory consumption.
+
+2008-05-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	Minimum interval of stabilizations changed from 1 sec to 0.250 sec.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	A node which received a MULTICAST_JOINING_NODE returns a reply
+	immediately and send AcknowledgedMulticast messages later.
+	This change reduced the number of threads running concurrently.
+
+	* src/ow/messaging/Message.java
+	Compresses messages with GZIP{Output,Input}Stream.
+
+2008-05-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Allows blackList to be null.
+	This change reduced the size of a serialized message by 42 bytes.
+
+	* src/ow/messaging/{udp/UDP,tcp/TCP}MessagingAddress.java
+	{UDP,TCP}MessagingAddress were abolished and
+	ow.messaging.InetMessagingAddress was substituted for them.
+	This change reduced the size of a serialized message by 59 bytes.
+
+2008-05-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.4 released.
+
+	* src/ow/routing/RoutingResultFilter.java
+	The RoutingResultFilter class was restored.
+	It post-processes the result returned by a callback
+
+2008-05-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Adjustment and termination processes were moved from route() to
+	Querier#call(). This change removes a synchronization of
+	collective queries at an adjustment process, and allows adjustment
+	and termination processes to run concurrently.
+
+	* src/ow/messaging/emulator/Emu{MessageReceiver,MessagingConfiguration}.java
+	Emulator messaging service can add communication latency to
+	each messaging.
+
+2008-05-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.3 released.
+
+2008-04-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{impl/DHTImpl,DHTConfiguration}.java
+	The default value of TTL was set as 180 min.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	DHT#put bundles multiple put requests whose targets are the same node.
+	DHT#remove bundles remove requests whose targets are the same node.
+
+	* src/ow/tool/dhtshell/commands/{Set{TTL,Secret},Put}Command.java
+	DHT shell implements "setttl" and "setsecret" commands.
+	The "put" command uses preset values by those commands.
+	The argument list for "put" command was changed.
+
+	* src/ow/dht/{DHT,impl/{CHTImpl,StandardDHTImpl}}.java
+	DHT#put uses the TTL value and the hashed secret set by prior
+	setTTL() and setHashedSecret() calls.
+
+2008-04-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.2 released.
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.74 to 3.2.76.
+
+2008-04-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	The traverseDownward() and pickCloseEntry() method
+	puts the node itself into the results.
+	The self entry prevents forwarding to a node farther than the self.
+
+2008-04-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/scenariogen/commands/{Mput,Mget}Command.java
+	Scenario generator provides "mput" and "mget" commands.
+	They generate put and get reqeusts which deal with multiple
+	key-value pairs collectively.
+
+	* src/ow/routing/RoutingAlgorithm.java
+	RoutingAlgorithm#getConfiguration() added.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	In message handlers, calls RoutingAlgorithm#touch(lastHop)
+	though the node did not communicate directly with the lastHop.
+
+2008-04-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	Pastry#closestTo() also returns nodes which are farther than
+	the node itself. It is OK.
+	See 2007-04-23.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Checks TTL when retrying sending a terminating message.
+
+2008-04-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	Pastry#closestTo() does not return nodes which are farther than
+	the node itself while Pastry#rootCandidates() returns them.
+
+	* src/ow/routing/pastry/Pastry.java
+	The closestTo() method can return nodes in the routing table even
+	though the leaf set could provide nodes.
+
+2008-04-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	When invoking another thread to call RoutingAlgorithm#join(...),
+	copy elemnts of an array which is an argument, not only copy an
+	array itself. If not, the elements can be changed later.
+
+	* src/ow/routing/pastry/Pastry.java
+	A RoutingTableMaintainer more cleverly finds a target node to
+	which the maintainer asks a row.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	MessageHandler for REC_{ROUTE,TERMINATE}_{NONE,INVOKE,JOIN}
+	does not invoke a new Threads to process a received message.
+	Thus, it does not pass over
+	AbstractRoutingDriver.RoutingDrvMessageHander#postProcess(),
+	which invokes RoutingAlgorithm#touch().
+
+	* src/ow/messaging/ExtendedMessageHandler.java
+	This is an extended MessageHandler with the postProcess() method,
+	which is called after a returned-value is returned.
+
+2008-04-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	In case of a node merger to a routing table and leaf sets,
+	merge the node into antoher table.
+	This is not described in the Pastry paper.
+
+2008-04-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	RecursiveRoutingDriver can treat multiple routing requests
+	collectively.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	The DHT implementation uses collective routing
+	to put, get and remove multiple key-value pairs collectively.
+
+	* src/ow/routing/{plaxton/Plaxton,pastry/Pastry,tapestry/Tapestry}.java
+	Plaxton and its variations are suspended initially and resumed later.
+	In Pastry, a RoutingTableMaintainer does not start. Fixed.
+
+	* src/ow/routing/pastry/PastryConfiguration.java
+	Routing table maintenance interval changed from 120 sec to 30 sec.
+
+2008-04-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	The DHT implementation (StandardDHTImp) is in preparation
+	for utilizing collective routing.
+
+2008-04-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	IterativeRoutingDriver can treat multiple routing requests
+	collectively.
+
+2008-04-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Optimizations for local destination were disabled.
+	Underlying communication layer does such optimizations.
+
+2008-04-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{DHT,impl/{StandardDHT,CHT}Impl}.java
+	DHT provides methods to put, get and remove multiple key-value pairs.
+
+2008-04-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/CHTImpl.java
+	A remove operations without an actual value has not worked. Fixed.
+
+	* src/ow/tool/dhtshell/command/{Put,Get,Remove}.java
+	Put, get and remove commands of a DHT shell accept multiple arguments.
+	This change makes preparations for utilizing collective routing.
+
+2008-04-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/id/ID.java
+	Some fields removed to reduce memory consumption.
+
+2008-04-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8.1 released.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.8 to 6.1.9.
+
+2008-04-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	RecursiveRoutingDriver#routeOrJoin() assumes that
+	it receives a message with an unexpected type.
+
+2008-03-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Task check interval was changed from 10 sec to 5 sec.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Recursive routing driver waited for a routing result forever. Fixed.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Checks if the target of the terminating message is the responsible
+	node and tries possible candidates if not. This check improves
+	routing success rate with incomplete routing tables in Chord and
+	Koorde.
+
+2008-03-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	The changes made in 2008-03-23 was canceled.
+
+2008-03-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/kademlia/Kademlia.java
+	Adds Kademlia#kBucketLength instead of KBucket#capacity removed.
+	This change will save a little memory.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	The priority of the thread running sendAcknowledgedMulticast()
+	was lowered to yield to the message handling thread.
+	This change decreases the number of thread running simultaneously.
+
+2008-03-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.8 released.
+
+2008-03-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	Maximum interval of stabilizations changed from 128 sec to 64 sec.
+
+	* src/ow/routing/{chord/Chord,koorde/Koorde}.java
+	RoutingAlgorithm#resume() could invoke multiple
+	FingerTableFixer (Chord) and EdgeFixer (Koorde). Fixed.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Routing fails when TTL expiration occurs in recursive routing.
+
+2008-03-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{Routing{Exception,Service,Runtime},impl/*Driver}.java
+	Routing methods (e.g. RoutingService#routeToRootNode()) throw
+	a RoutingException in case that routing failed.
+
+2008-03-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.68 to 3.2.74.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.7 to 6.1.8.
+
+2008-01-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/mcastshell/Main.java
+	A bug throwing NullPointerException fixed.
+
+2008-01-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	The routeOrJoin() method has returned a RoutingResult instance
+	including null as rootCandidates.
+	If it is null, calculates it locally to avoid null.
+
+2008-01-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.12 released.
+
+2008-01-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Timer.java
+	Keeps a non-daemon thread for 20 second
+	after it finishes to keep the JVM running.
+
+	* src/ow/messaging/{udp/UDPMessaging,tcp/TCPMessaging}Provider.java
+	The interpretation of config.getDoTimeoutCalculation() has been opposite.
+	Fixed.
+	Thanks Lichun Li <lilichun at gmail.com>.
+
+	* src/ow/messaging/util/UPnPAddressPortMapper.java
+	Utility methods getAddedMapping(), getExternalAddress() and isTrying() implemented.
+
+2008-01-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.11 released.
+
+	* src/ow/util/Timer.java
+	Provides another version of schedule*()
+	which accepts an isDaemon argument.
+
+2007-12-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* bin/owlistnodes{,.bat},src/ow/{tool/listnodes/Main,stat/{NodeInvestigator,impl/NodeInvestigatorImpl}}.java
+	A tool to collect reachable nodes (owlistnodes) provided.
+
+	* src/ow/{util/HTMLUtil,tool/dhtshell/XmlRpcDHTServer}.java
+	The convertMessagingAddressToURL methods were moved
+	from ow.tool.dhtshell.XmlRpcDHTServer to ow.util.HTMLUtil.
+
+	* src/ow/{messaging/Messaging,routing/RoutingService}Configuration.java
+	Changed static timeout of messaging from 3 sec to 10 sec
+	and routing timeout from 10 sec to 60 sec.
+
+2007-12-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.10 released.
+
+2007-12-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.44 to 3.2.68.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.6 to 6.1.7.
+
+2007-12-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{udp/UDP,tcp/TCP}MessageSender.java
+	MessageSender#send() has invoked a handler doubly if the
+	destination is the node itself. Fixed.
+
+2007-12-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.9 released.
+
+	* src/ow/messaging/{udp/UDP,tcp/TCP}Message{Sender,Receiver}.java
+	Reads and disposes data remaining in a TCP stream or TCP/IP protocol stack
+	before use a socket obtained from a socket pool.
+
+	* 0.7.8 released.
+
+	* src/ow/routing/chord/ChordConfiguration.java
+	Maximum interval of fix_fingers was changed from 120 sec to 240 sec.
+	This change reduces the time to complete an emulation with 10,000 nodes
+	from about 4h 30m to 4h.
+
+2007-12-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{emulator/EmuMessagingConfiguration,AbstractInetMessagingAddress}.java
+	A flag MessagingConfiguration#DO_HOSTNAME_LOOKUP provided.
+	A node does not perform a reverse lookup of a hostname if the flag is false.
+
+2007-12-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker{,Configuration}.java
+	LinearWalkerConfiguration#getUpdateRoutingTableByAllCommunications() provided.
+
+	* src/ow/routing/chord/Chord{,Configuration}.java
+	ChordConfiguration#doFixFingers() provided.
+
+2007-12-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.7 released.
+
+2007-11-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{tool/emulator/EmulatorContext,util/Timer}.java
+	Emulator keeps running for 5 second after all threads
+	(emulator commands, message handling and routing handling) finished.
+
+2007-11-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{emulator/{EmulatorControllable,action/InvocationTask},util/shellframework/Shell}.java
+	An application instance which implements EmulatorControllable returns a Writer.
+	Emulator writes commands to the Writer.
+	This change removes a thread per an application instance.
+
+	* src/ow/messaging/emulator/EmuMessage{Receiver,Sender}.java
+	A thread per EmuMessageReceiver instance removed.
+
+2007-11-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{dht/impl/StandardDHTImpl,messaging/Tag}.java
+	Protocol for key-value pairs transfer to a joining node was changed.
+	Now it is not a pair of request and reply, rather it is asynchronous.
+
+2007-11-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.6 released.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.5 to 6.1.6.
+
+2007-11-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{msgstat/{,impl/}*,messaging/*/*{Sender,Receiver}}.java
+	Messaging services report the length of messages,
+	in addition to the number of messages, to a stat collector.
+	(Currently, ow.messaging.{emulator,distemulator} report at all times.)
+
+2007-11-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/directory/expiration/AbstractExpiringDirectory.java
+	ExpiringTask is scheduled for the next expiration.
+
+2007-11-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/directory/expiration/{AbstractExpiringDirectory,Expiring{,Dup}Directory.java
+	ExpiringTask (defined in AbstractExpiringDirectory class) is scheduled
+	only in case there is at least one key-value pair.
+
+	* src/ow/directory/{,Dup}Directory.java
+	Directory#isEmpty() and DupDirectory#isEmpty() provided.
+
+2007-11-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/InsertedOrderContactList.java
+	Uses LinkedList instead of ArrayList because of slightly better performance.
+
+	* src/ow/routing/kademlia/{Kademlia,KBucket}.java
+	Performance of Kademlia improved.
+
+2007-11-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.5 released.
+
+2007-11-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/ByteArray.java
+	Serialized format changed.
+
+	* src/ow/dht/ByteArray.java
+	A bug fixed. A call to hashCode() on a deserialized ByteArray instance
+	returns an incorrect value.
+
+	* src/ow/dht/impl/{StandardDHT,CHT}Impl.java
+	These classes uses ow.directory.expiration.Expirable interface
+	and do not maintain the TTL field in a ValueInfo instance by itself.
+
+	* src/ow/directory/expiration/*.java
+	An interface ow.directory.expiration.Expirable provided
+	to maintain a TTL value in values in an expiring directory.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	A bug fixed. Reputted key-value pairs have incorrect TTL and do not expire.
+
+2007-11-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.4 released.
+
+2007-11-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	A bug has caused the following problem fixed.
+	In case of iterative routing,
+	RoutingAlgorithmConfiguration#adjustRoot() is false
+	(neither Chord nor Koorde)
+	and the root is the requesting node itself,
+	callbacks are not invoked.
+	For example, DHT#get fails.
+
+	* src/ow/dht/ByteArray.java
+	Provides a public no-arg constructor required to implement
+	Externalizable interface.
+	DHT#put() has not been work becaus of this bug from 2007-10-04.
+
+	* src/ow/messaging/AbstractInetMessagingAddress.java
+	Performs a reverse lookup of a hostname in a separated thread.
+	By that, a thread calling getHostname() does not have to wait for
+	completion of a reverse lookup.
+
+	* src/ow/routing/Routing{Hop,Result}.java, ...
+	Adds time to a hop information in a route (RoutingResult object).
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Routing algorithms where
+	RoutingAlgorithmConfiguration#queryToAllContacts() returns true
+	(e.g. Kademlia) show all contacted nodes during a routing as the route.
+	So far the last 2 nodes in the route are shown.
+
+2007-10-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{visualizer/{Main,OverlayVisualizer},msgcounter/{Main,MessageCounter}}.java
+	UPnP NAT traversal can be disabled in an overlay visualizer and a message counter
+	with --no-upnp option.
+
+	* src/ow/msgstat/{StatCollectorConfiguration,impl/StatCollectorImpl}.java
+	UPnP NAT traversal can be disabled in a stat collector
+	by controlling a flag in StatCollectorConfiguration instance.
+
+2007-10-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.3 released.
+
+	* src/ow/messaging/{udp/UDP,tcp/TCP,AbstractInet}MessagingAddress.java
+	Provides {read,write}External methods
+	to reduce the size of a serialized message.
+
+2007-10-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/ByteArray.java
+	Provides {read,write}External methods
+	to reduce the size of a serialized message.
+
+	* src/ow/id/IDAddressPair.java
+	A field idSizeInByte removed
+	to reduce the size of a serialized message.
+
+2007-09-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.43 to 3.2.44.
+
+2007-09-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/ChordInAggressiveJoiningMode}.java
+	The successor unconditionally accepts a joining node as the
+	predecessor if the node runs Chord in aggressive joining mode.
+
+2007-08-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.2 released.
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.42 to 3.2.43.
+
+	* src/ow/tool/scenariogen/commands/JoinCommand.java
+	When the 3rd arg is given to "join" command of scenario generator,
+	it randomizes initial contacts, not just "emu1".
+
+2007-08-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{tcp/TCP,udp/UDP}MessageReceiver.java
+	If failed to bind to the specified address (-s <addr>),
+	tries to bind to a local address (InetAddress.getLocalHost()).
+
+2007-08-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{clink170,xercesImpl}.jar,bin/*
+	Deletes xercesImpl.jar by modifying org.cybergarage.UPnP
+	to use JaxpParser instead of XercesParser.
+
+	* src/ow/routing/impl/AbstractRoutingDriver.java
+	Creates a new RoutingAlgorithm instance in case that
+	the MessagingAddress of the node itself has changed.
+
+	* src/ow/messaging/{tcp/TCP,udp/UDP}MessagingSender.java
+	Processes a message locally in case that its destination is local.
+
+	* src/ow/tool/util/toolframework/Abstract{DHT,Mcast}BasedTool.java
+	DHT / Mcast shells recognize --no-upnp option.
+	It disables UPnP address port mapping. 
+
+	* src/ow/messaging/{tcp/TCP,udp/UDP}{MessagingProvider,MessageReceiver}.java,bin/*
+	UDP and TCP messaging services try to establish
+	UPnP address port mapping on an Internet router.
+
+	* lib/{clink170,xercesImpl}.jar,src/ow/messaging/upnp/
+	Facilities for UPnP address port mapping provided.
+
+2007-08-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7.1 released.
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.23 to 3.2.42.
+
+2007-08-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/**/*.java
+	"new Random(System.currentTimeMillis())" changed to "new Random()"
+	because supplying a seed has no effect.
+
+2007-08-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/action/InvocationTask.java
+	Emulator's "invoke <host id>" command has been ignoring
+	the host id argument. Fixed.
+	Creates a pipe before instantiating an application instance.
+
+2007-08-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Uses Jetty through reflection to remove static dependence on Jetty.
+	It facilitates compilation with GCJ.
+
+2007-07-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.7 released.
+
+	* src/ow/util/Timer.java
+	Timer#cancel(Runnable task) implemented.
+	It is called by AlarmClock#clearAlarm();
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.4 to 6.1.5.
+
+2007-07-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/**/*.java
+	ow.util.Timer was renamed to ow.util.AlarmClock.
+	ow.util.Scheduler was renamed to ow.util.Timer.
+	AlarmClock uses ow.util.Timer instead of java.util.Timer.
+
+	* src/ow/routing/pastry/Pastry.java
+	Target nodes to which a joined node send an UPDATE_ROUTING_TABLE
+	message was slightly changed.
+
+2007-07-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/commons-cli-*.jar
+	Jakarta commons CLI was updated from 1.0 to 1.1.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	DHT implementation uses Scheduler
+	to reput automatically key-value pairs.
+
+	* src/ow/routing/koore/Koorde.java
+	Initial value of variable i (imaginary ID) were
+	reverted to m from m + 1.
+	See 2006-04-25.
+	Inclusion checks of k and i in closeTo() were instead updated.
+	Thanks Sano <omotas_00 at yahoo.co.jp>.
+
+	* src/ow/util/ClockJumpAwareSystem.java
+	Even not after sleeping, clock jump adjusted.
+
+	* src/ow/routing/chord/ChordConfiguration.java
+	Minimum interval of fix_fingers was changed from 10 sec to 30 sec.
+
+2007-07-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Scheduler.java
+	Clock jump adjustment method corrected.
+
+	* src/ow/dictionary/expiration/AbstractExpiringDictionary.java
+	Expiring dictionaries use ow.util.Scheduler instead of java.util.Timer.
+
+	* src/ow/routing/RoutingAlgorithmConfiguration,{linearwalker/LinearWalker,chord/Chord,koorde/Koorde,pastry/Pastry}.java
+	Suspend() and resume() methods invokes and kills
+	daemon threads (Stabilizer, FingerTableFixer).
+	This change resolved a problem with which earlier-invoked daemons
+	invoked definitely earlier than later-invoked ones.
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Stop condition of connectToSuccessor() improved.
+
+2007-07-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Scheduler.java
+	Number of Scheduler daemon threads can be adjusted.
+	The default nubmer is 1.
+
+2007-07-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/or/routing/{linearwalker/LinearWalker,chord/Chord,koorde/Koorde,pastry/Pastry}.java
+	A bug fixed. An idiom 'while (suspended) synchronized (...) {
+	...wait()' was corrected as
+	'synchronized (...) while (suspended) { ...wait()'.
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	Minimum interval of stabilizations changed from 4 sec to 1 sec.
+
+	* src/tool/emulator/action/InvocationTask.java
+	Prepares a pipe in the constructor of EmuControlalbleInvoker,
+	not in the run() method.
+
+	* src/ow/util/Scheduler.java
+	A scheduler checks a new scheduled task periodically.
+
+	* src/or/routing/{linearwalker/LinearWalker,chord/Chord,koorde/Koorde,pastry/Pastry}.java
+	If RoutingAlgorithmConfiguration#getUseSchedulerInsteadOfThread()
+	is true, each routing algorithm uses Scheduler instead of Thread
+	to invoke periodic processes such as stabilization.
+	Note that Scheduler#schedule()'ed tasks (Runnable instances) are
+	executed by the singleton scheduler thread sequentially and delay
+	affects	the following tasks.
+
+	* src/ow/util/Scheduler.java
+	getSingletonScheduler() implemented.
+
+2007-07-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/ClockJumpAwareSystem.java
+	A bug fixed. waitOrSleep() called Object#wait() twice or more
+	in case clock jumped, but double calls to wait() causes a problem:
+	A notified thread waits again.
+
+2007-07-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{dht/impl/StandardDHTImpl,mcast/impl/McastImpl}.java
+	StandardDHTImpl and McastImpl
+	use ClockJumpAwareSystem to sleep.
+
+	* src/ow/messaging/emulator/EmuMessageSender.java
+	EmuMessageSender#sendAndReceive()
+	uses ClockJumpAwareSystem to wait on an object.
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/Chord,koorde/Koorde,pastry/Pastry}.java
+	Threads in routing algorithms
+	(Stabilizer, FingerTableFixer,EdgeFixer, RoutingTableMaintainer)
+	uses ClockJumpAwareSystem#sleep().
+
+	* src/ow/util/Scheduler.java
+	Uses ClockJumpAwareSystem to sleep.
+
+	* src/ow/util/ClockJumpAwareSystem.java
+	This class provides sleep() and wait() methods, that are aware of
+	system clock jump.
+
+2007-07-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{emulator/Emu,udp/UDP,tcp/TCP}MessageReceiver.java
+	Gives higher priority to a message handling thread.
+
+2007-07-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessageReceiver.java
+	Kills the JVM when OutOfMemoryError caught
+	by calling Runtime.getRuntime().halt(1).
+
+2007-07-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker{,Configuration}.java
+	A stabiliezr calls updatePredecessor() once 10 times stabilized.
+	See 2007-04-19.
+
+	* src/ow/routing/chord/ChordConfiguration.java
+	The thread which invokes fix_fingers sleeps just after notified.
+	Minimum interval of fix_fingers was changed from 6 sec to 10 sec.
+
+2007-07-14  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/PastryConfiguration.java
+	Routing table maintenance interval changed from 90 sec to 120 sec.
+
+	* src/ow/routing/chord/ChordConfiguration.java
+	Minimum interval of fix_fingers was changed from 3 sec to 6 sec.
+
+	* src/ow/routing/pastry/PastryConfiguration.java
+	Routing table maintenance interval changed from 60 sec to 90 sec.
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	Minimum interval of stabilizations changed from 2 sec to 4 sec.
+
+	* src/ow/routing/chord/{Chord{,Configuration}.java}
+	Algorithm to determine interval of fix_fingers changed
+	as before 2007-07-04.
+
+2007-07-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Scheduler.java
+	A bug fixed. In case that there were multiple scheduled tasks at
+	the same time, a scheduler invoked only one of them.
+
+	* src/ow/tool/emulator/action/*Task.java
+	A toString() method provided in *Task classes.
+
+2007-07-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/util/Scheduler.java
+	An alternative to java.util.Timer, ow.util.Scheduler was provided.
+
+2007-07-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/emulator/*.java
+	Emulator detects clock jump and adapts to it.
+
+	* src/ow/routing/chord/ChordConfiguration.java
+	Minimum interval of fix_fingers was changed from 2 sec to 8 sec.
+
+	* src/ow/routing/chord/{Chord{,Configuration},FingerTable}.java
+	Algorithm to determine interval of fix_fingers changed.
+	In the previous algorithm, an interval determined based on
+	the number of (different) entries in the finger table.
+	In the current algorithm, interval is extended
+	in case that no entry was updated.
+
+2007-07-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{messaging/{emulator/Emu,tcp/TCP,udp/UDP}MessageReceiver,routing/impl/{Iterative,Recursive}RoutingDriver}.java
+	Catches and rethrows an OutOfMemoryError.
+
+2007-06-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.3 to 6.1.4.
+
+2007-06-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.6.4 released.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	Adjusts TTL of key-value pairs (ValueInfo) when transferring
+	them to a joining node.
+
+	* src/ow/messaging/tcp/ConnectionPool.java
+	Closes an existing connection when disposing it in put().
+
+2007-06-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	Removes key-value pairs from localDir on the requesting node.
+	Thanks Peter Kersch <peter.kersch at tmit.bme.hu>.
+
+	* src/ow/messaging/udp/UDPMessagingProvider.java
+	A bug fixed.
+	A created receiver can be registered with a wrong port number.
+	Thanks Peter Kersch <peter.kersch at tmit.bme.hu>.
+
+	* src/ow/messaging/tcp/TCPMessageSender.java
+	Detects and disposes a stale connection in the connection pool
+	in send() and sendAndReceive().
+	Thanks YOSHIZAWA Masahiro <masahiro.yoshizawa.bt at hitachi.com>.
+
+2007-05-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.6.3 released.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.*.jar
+	Jetty was updated from 6.1.1 to 6.1.3.
+
+2007-05-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/Chord{,InAggressiveJoiningMode}}.java
+	A REQ_CONNECT message was processed twice by a Chord node. Fixed.
+
+2007-05-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.6.2 released.
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Asks the predecessor its successor and adopts it as the new
+	predecessor if it is appropriate.
+	See 2007-04-19.
+
+2007-04-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Routing drivers does not create a thread pool
+	and use the thread pool instantiated by a Messaging service.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	In case of put, get and remove,
+	a node obtains spare root candidates to access.
+	The number of the spares is 3 in default
+	(DHTConfiguration#DEFAULT_NUM_SPARE_ROOT_CANDIDATES).
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	In case of put and remove, the root node creates / removes
+	replicas instead of the requester
+	if DHTConfiguration#DEFAULT_ROOT_DOES_REPLICATOIN is true.
+
+	* src/ow/dht/impl/StandardDHTImpl.java
+	DHTImpl renamed StandardDHTImpl.
+
+	* src/ow/messaging/util/AccessControlledServerSocket.java
+	DHT shell accepts incoming connections even without --acl option.
+
+2007-04-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Adopts successor's predecessor as the nodes's own predecessor
+	if it is appropriate in connectToSuccessor().
+
+2007-04-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.6.1 released.
+
+2007-04-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/DHTImpl.java
+	Uses RoutingAlgorithm#rootCandidates() to determine whether
+	to delegate key-value pairs or not to a joining node.
+
+	* src/ow/routing/{RoutingAlgorithm,impl/{Iterative,Recursive}RoutingDriver}.java
+	RoutingAlgorithm#neighbors() renamed rootCandidates().
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.21 to 3.2.23.
+
+2007-04-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Checks whether the predecessor is alive or not in stabilizing process.
+
+2007-04-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/**/*.java
+	Coding style modified.
+
+2007-03-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.6 released.
+
+2007-03-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je-3.2.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.2.13 to 3.2.21.
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Web interface shows the route on which the last lookup performed.
+
+2007-03-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{util/HTMLUtil,tool/dhtshell/XmlRpcDHTServer,routing/**/*.java}
+	Converts HTML special characters to printable characters.
+	E.g. '>' to '&gt;'.
+
+2007-03-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/**/*.java
+	Adds an attribute `final' to an instance field Logger logger.
+
+2007-03-16  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{dhtshell,mcastshell}/Main.java
+	The "source" command of DHT shell and Mcast shell disabled.
+
+	* src/ow/{messaging/util/AccessControl*,tool/{{dht,mcast}shell,msgcounter}/Main}.java
+	DHT shell, Mcast shell and Message Counter recognize ACL.
+
+2007-03-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/timeoutcalc/
+	An ow.messaging.TimeoutCalculator class was renamed to
+	ow.messaging.timeoutcalc.RTTBasedTimeoutCalculator.
+	An ow.messaging.timeoutcalc.TimeoutCalculator interface created.
+
+2007-03-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessagingConfiguration.java
+	Emulator uses static timeout (3 sec), not calculates it dynamically.
+
+2007-03-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{routing/impl/RoutingDriver,msgstat/impl/StatCollector,routing/tapestry/Tapestry}MessageFactory.java
+	Explicit encapsulation was abolished.
+	The true cause of the observed trouble (ClassCastException to
+	IDAddressPair[]) was interpretation of a broken/partial UDP datagram.
+
+2007-03-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{Message,udp.UDPMessageReceiver}.java
+	Gives consideration to a broken/partial UDP datagram received.
+
+2007-02-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{TimeoutCalculator,{udp/UDP,tcp/TCP,emulator/Emu}MessageSender}.java
+	TCP-style timeout calculation implemented.
+
+2007-02-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.11 released.
+
+2007-02-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{routing/impl/RoutingDriver,msgstat/impl/StatCollector,routing/tapestry/Tapestry}MessageFactory.java
+	Encapsulates an argument for Message(...) (with varargs)
+	explicitly in case the argument is an array and in danger of not
+	being encapsulated to the first element of Serializable[].
+
+2007-02-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.10 released.
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Web interface to put, get and remove accepts UTF-8 strings
+	as a key or a value.
+
+	* lib/je-3.*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.1.0 to 3.2.13.
+
+2007-02-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Remove operation on a node status web page implemented.
+
+2007-02-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Put and get operations on a node status web page implemented.
+
+	* 0.5.9 released.
+
+2007-02-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	A de Bruijn edge is represented by an IDAddressPair object,
+	not IDAddressRoutingContextTriplet.
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	Showss node information on http://<hostname>:3998/
+	if owdhtshell is invoked with `-x' option.
+
+	* src/ow/routing/RoutingAlgorithm.java
+	Each algorithm is required to implement
+	RoutingAlgorithm#getRoutingTableHTMLString().
+
+	* src/
+	Default contact port number is changed from 3999 to 3997.
+
+	* lib/jetty{,-util,servlet-api-2.5}-6.1.1.jar
+	Jetty 6.1.1 incorporated.
+
+	* src/ow/tool/dhtshell/XmlRpcDHTServer.java
+	XML-RPC DHT Server uses Jetty.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Calls callbacks itself even if the node is the root node.
+	With a DHT with only a node get() does not return any value due to
+	a change on 2007-02-06.
+
+2007-02-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.8 released.
+
+2007-02-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/mcastshell/Main.java
+	Mcast shell prints multicasted messages to stdout, not only sockets.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Does not call callbacks twice on the initiator of routing.
+
+2007-02-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/{emulator/Emu,tcp/TCP,udp/UDP}MessageReceiver.java
+	Checks if there is an existing receiver thread before creating or
+	stopping a thread.
+
+2007-01-31  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.7 released.
+
+	* src/ow/tool/emulator/OutputRedirector.java
+	Does not use New I/O (java.nio) because a returned value of
+	Channels.newChannel() cannot be SelectableChannel.
+	See 2007-01-03.
+
+2007-01-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.6 released.
+
+2007-01-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessageSender.java
+	A bug fixed.
+	It causes EmuMessageSender#sendAndReceive() not to be notified.
+
+2007-01-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessageReceiver.java
+	Synchronized period shortened.
+
+	* src/ow/tool/emulator/OutputRedirector.java
+	Uses New I/O (java.nio) to use select(2) instead of creating a
+	Thread for each emulated node.
+
+2007-01-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/messaging/emulator/EmuMessagingAddress.java
+	Hash code is cached.
+
+2006-12-31  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Excludes successorList.contains(predecessor)
+	from the condition to reset the sleep interval to 2 sec
+	in a stabilizer.
+
+	* src/ow/messaging/*/*MessageReceiver.java
+	Catches an Exception thrown by MessageHandler#process().
+
+	* src/ow/messaging/Tag.java
+	Duplicated tag numbers are corrected.
+	e.g. PUNCH_HOLE_REQ and PING are numbered the same tag (0).
+
+	* src/ow/{messaging/MessagingProvider,msgstat/StatReporter}.java
+	A MessagingProvider#isReliable() method provided.
+	StatReporter does not confirm aliveness of a stat collector in
+	case that the underlying transport is reliable.
+
+	* src/ow/msgstat/StatCollectorConfiguration.java
+	Decrease the frequency of ping to confirm aliveness of stat collector
+	from once a 10 reports to once a 25 reports.
+
+2006-12-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/chord/Chord{,Configuration}.java
+	Algorithm to determine interval of fix_fingers changed.
+
+2006-12-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.5 released.
+
+	* src/ow/dht/impl/CHTImpl.java
+	Centralized (not distributed) Hash Table implemented.
+
+2006-12-03  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/tapestry/Tapestry.java
+	A bug fixed. It made the first node on an overlay wait always
+	in waitForJoinCompletion().
+
+	* src/ow/routing/{plaxton/Plaxton,tapestry/Tapestry}.java
+	Join status management code was moved from Plaxton to Tapestry.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	Routing process with routing context (e.g. in case of Koorde)
+	fixed. It had a bug which appears with only 1 node.
+
+2006-12-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	Pastry#requestLeafSet() dropped larger half of a leaf set. Fixed.
+	Thanks Diego da Silva Gomes <dsgomes at inf.ufrgs.br>.
+
+2006-11-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.4 released.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Recursive routing driver creates a thread to call
+	RoutingAlgorithm#join(joiningNode, ...).
+
+2006-11-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	In Pastry, a node does not create a thread to handle an
+	UPDATE_ROUTING_TABLE message.
+
+	* src/ow/routing/plaxton/Plaxton.java
+	A bug in management of joining status fixed.
+	The status could be changed from "completed" to "not yet" in case
+	that startJoining() called after finishJoining() called.
+
+2006-11-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/tapestry/Tapestry.java
+	In Tapestry, a joining node send a NOTIFY_JOINING_NODE message
+	instead of a PING message when it receives an
+	UPDATE_ROUTING_TABLE message.
+
+2006-11-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/tapestry/Tapestry.java
+	Recursive calls of Tapestry#sendAcknowledgedMulticast()
+	translated to a loop.
+
+	* src/ow/routing/plaxton/RoutingTableRow.java
+	isEmpty() method implemented.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	A node does not send an Acknowledged Multicast message to the
+	joining node itself.
+
+	* src/ow/mcast/impl/McastImpl.java
+	The message type of reply to CONNECT was changed
+	from ACK/NACK to ACK_CONNECT/NACK_CONNECT.
+
+	* src/ow/routing/chord/ChordInAggressiveJoiningMode.java
+	The message type of reply to UPDATE_FINGER_TABLE was changed
+	from ACK to ACK_FINGER_TABLE.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	The message type of reply to MULTICAST_JOINING_NODE was changed
+	from ACK to MULTICAST_ACK.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Message types were changed.
+	ACK to REC_ACK and REC_REPLY to REC_RESULT.
+
+2006-11-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/tapestry/
+	In Tapestry, a node which received a AcknowledgedMulticast message
+	is allowed not to return an ACK. In deafult, returns an ACK.
+
+2006-11-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.3 released.
+
+	* src/ow/{messaging/*/*Sender,msgstat/StatReporter}.java
+	A bug, which causes message-sent-reports not sent to a stat
+	collector, fixed.
+
+	* src/ow/{dht/DHT,mcast/Mcast}Configuration.java,src/ow/tool/util/toolframework/Abstract{DHT,Mcast}BasedTool.java
+	Initial contact port is fixed (e.g. 3999)
+	even though self port has been shifted.
+
+	* 0.5.2 released.
+
+	* src/ow/{tool/visualizer/,routing/impl/AbstractRoutingDriver.java}
+	Visualizer (owviz) collects node information actively
+	if the initial contact is specified.
+
+	* src/ow/tool/{msgvisualizer,visualizer}/
+	Package name of Visualizer changed from msgvisualizer to visualizer.
+
+2006-11-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/RoutingAlgorithmConfiguration.java
+	Number of communication failures before forgetting the target
+	changed to 1 (DEFAULT_NUM_OF_FAILURES_BEFORE_FORGET_NODE = 1).
+
+	* src/ow/messaging/udp/UDPMessageReceiver.java
+	A bug, which causes deadlock during UDP hole punching, fixed.
+
+	* src/ow/msgstat/StatReporter.java
+	StatReporter forgets a stat collector in case failed to	receive an
+	ack from it specified times.
+
+	* src/ow/msgstat/
+	Messaging stat collector refactored.
+	Utility methods to report to a stat collector were changed from
+	static methods to instance methods.
+
+	* src/ow/tool/{msgvisualizer/,util/visframework/}
+	Visualizer refactored.
+
+2006-11-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{impl/DHTImpl,DHTConfiguration}.java
+	Value delegation implemented.
+	A just joined node asks some neighbors to give values to be hold
+	by the joining node.
+	DHTConfiguration#DEFAULT_NUM_ASKED_TO_DELEGATE is the number of
+	nodes which asked to delegate values.
+
+2006-11-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/impl/DHTImpl.java
+	DHT#get requests values to multiple nodes, which are the root node
+	itself and its neighbors.
+	See DHTConfiguration#GET_NUM_TIMES_GET.
+
+	* src/ow/routing/chord/Chord.java
+	FingerTableFixer#run() (fix_fingers() in Figure 7 of SIGCOMM paper)
+	optimized:
+	orig:      figner[i].node = find_successor(finger[i].start);
+	optimized: finger[i].node = find_predecessor(finger[i+1].start);
+	But this optimization is disabled in default
+	because the hop count reduced but churn tolerance declined.
+
+2006-11-06  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5.1 released.
+
+	* src/ow/{dht/impl/DHTImpl,mcast/impl/McastImpl}.java
+	Changes the order of components stopped.
+
+	* src/ow/messaging/{udp,tcp}/
+	UDP and TCP Messaging services now accept "localhost" as a hostname.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	Considers the black list when contacting an adjusted last hop.
+
+2006-11-05  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	A bug with which Koorde#closestTo() throws NullPointerException
+	in case that predecessor is null was fixed.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	A bug with which blacklist does not work was fixed.
+
+2006-11-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	The method of surrogate routing changed.
+	It should not wrap around in a row.
+	And finally, traverseDownward() uses SortedSet<IDAddressPair> partly.
+
+2006-11-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/RoutingService.java
+	RoutingService#join(initialContact, numNeighbors) changed to
+	join(initialContact).
+
+	* src/ow/routing/RoutingAlgorithm.java and its derived classes
+	The argument of RoutingAlgorithm#join(IDAddressPair[] route)
+	is changed to "IDAddressPair[] neighbors".
+	This change increases the number of successor candidates
+	and success rate of joins in churn will be improved.
+
+	* src/ow/routing/impl/AbstractRoutingAlgorithm.java
+	A bug which causes ConcurrentModificationExceptoin fixed.
+
+	* src/ow/dht/impl/DHTImpl.java
+	Does not stop putting even if one of puts is failed.
+
+	* src/ow/routing/RoutingServiceConfiguration.java
+	The default number of nodes RoutingAlgorithm#closestTo() returns
+	was changed from 5 to 8.
+
+	* src/ow/routing/linearwalker/LinearWalkerConfiguration.java
+	The default length of successor list for LinearWalker and Chord
+	was changed from 4 to 8.
+
+2006-10-31  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/
+	Routing algorithms also see
+	RoutingServiceConfiguration#MessagingTimeout().
+
+	* src/ow/routing/impl/AbstractRoutingAlgorithm.java
+	GC implemented in an inner class FailureTable.
+
+	* src/ow/tool/scenariogen/commands/ChurnCommand.java
+	The range of controlled node corrected.
+	It is from 2 to num_of_nodes and emu1 (num 1) is not stopped.
+
+2006-10-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/scenariogen/commands/ChurnCommand.java
+	A frequency parameter of "churn" command interpreted reciprocally.
+
+	* src/ow/{dht/DHT,mcast/Mcast,routing/RoutingService}Configuration.java
+	Timeout configurations moved to RoutingSvcConfig.
+	Routing timeout introduced for recursive routing.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	RoutingServiceConfiguration#getUseThreadPool() has been
+	interpreted oppositely. Fixed.
+
+2006-10-27  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{dht,mcast}shell/
+	The "halt" command stops XML-RPC DHT server, not only running shells.
+
+2006-10-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/msgcounter/{MessageCounter,commands/*Command}.java
+	Writes CR LF instead of CR to a TCP stream.
+
+2006-10-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.5 released.
+
+2006-10-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	Synchronized region in EdgeFixer#run() narrowed.
+	A routing in the region has restricted performance.
+
+2006-10-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/Main.java
+	"-h" option of owemu command works.
+
+	* src/ow/tool/{dhtshell,mcastshell}/Main.java
+	The priority of DHT and Mcast shell commands changed.
+
+	* src/ow/tool/scenariogen/commands/ChurnCommand.java
+	"churn" command of Scenario generator supports improved.
+
+	* src/ow/tool/emulator/commands/IncludeCommand.java
+	"include" command introduced to Emulator.
+
+2006-10-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/commands/{Wait,Timeoffset}Command.java
+	In Emulator, "wait" command abolished and
+	instead "timeoffset" command introduced.
+
+2006-10-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/,src/ow/tool/util/shellframework/
+	Emulator can invoke a node at any time.
+
+	* src/ow/tool/{dht,mcast}shell/commands/{Reset,Clear}Command.java
+	"reset" command renamed to "clear routingtable" in the shells.
+	"clear {dht,mcast}" commands added to the shells.
+
+	* src/ow/dht/{{DHT,impl/DHTImpl},{Mcast,impl/McastImpl}}.java
+	leaveOverlay() method renamed to clearRoutingTable().
+	clear{DHT,Mcast}State() methods added.
+
+	* src/ow/{dht/DHT,mcast/Mcast}.java
+	The name of method leaveOverlay() changed to clearRoutingTable().
+	clearDHTState() and clearMcastState() added to DHT and Mcast
+	classes respectively.
+
+2006-10-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{dht,mcast}shell/commands/ResetCommand.java
+	"reset" command added to DHT and Mcast shells.
+
+	* src/ow/dht/{{DHT,impl/DHTImpl},{Mcast,impl/McastImpl}}.java
+	leaveOverlay() method added.
+
+	* src/ow/routing/RoutingService.java
+	leave() method added.
+
+	* src/ow/routing/RoutingAlgorithm.java and its derived classes
+	reset() method added.
+
+2006-10-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	A RoutingResult object which {DHT,Mcast}#getLastRoutingResult()
+	returns did not have neighbors, i.e. routingRes.getNeighbors()
+	returns null, not { neighbors_of_the_calling_node }.
+	This bug fixed.
+
+2006-10-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.4.3 released.
+
+	* src/ow/tool/dhtshell/XMLRPCServer.java
+	Placemark function in XML-RPC DHT server works now.
+	Thanks Andrey Ovchar.
+
+2006-10-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/pastry/Pastry.java
+	A bug which causes ArrayIndexOutOfBoundsException fixed.
+	Pastry#traverseUpward() has the cause, which is that colIndex
+	could be a negative number.
+
+2006-10-09  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{DHTConfiguration,impl/DHTImpl}.java
+	On a DHT overlay, a node which has key-value pairs can reput
+	them. The default setting is DHTConfiguration#DO_REPUT_ON_REPLICAS.
+
+2006-10-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/Main.java
+	DHT shell halts by "halt" command via telnet
+	(in case that a shell is invoked with -n option).
+
+	* 0.4.2 released.
+
+	* src/ow/tool/util/shellframework/Shell.java
+	Removes a NUL character at the head of a command line.
+	It is necessary to serve a correct telnet client which send
+	<CR><NUL> as the line terminating sequence.
+
+2006-09-28  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.0.12 to 3.1.0.
+
+2006-09-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.4.1 released.
+
+2006-09-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{util/shellframework/,{dht,mcast}shell/commands/}
+	DHT and Mcast shell write CR LF, not only LF, to a console.
+	It enables access to a shell on Windows.
+
+2006-09-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.4 released.
+
+2006-09-08  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{DHT,impl/DHTImpl,DHTConfiguration}.java
+	Replication on neighbors of the root implemented.
+	DHT#remove implementation changed.
+	The new impl is not base on callbacks, rather dependent messages
+	dedicated to removal.
+	DHT#put returns existed values.
+
+	* src/ow/tool/{dht,mcast}shell/commands/StatusCommand.java
+	"status" command of the shells shows neighbors
+	obtained in the last routing.
+
+	* src/ow/routing/RoutingService.java
+	Routing methods return a RoutingResult instance,
+	not a route (IDAddressPair[]).
+	It contains neighbors of the root node.
+
+	* src/ow/routing/RoutingAlgorithm.java, algorithm implementations
+	RoutingAlgorithm#neighbors(int) added.
+	An algorithm implementation should return its neighbors.
+
+	* src/ow/routing/kademlia/Kademlia.java
+	A bug in Kademlia implementation fixed.
+
+	* src/ow/dht/{advanced/,impl/{DHTFilter,ValueUpdaterSuite}.java}
+	AdvancedDHT interface abolished
+	because it complicates the DHT implementation.
+
+2006-09-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.6 released.
+
+2006-09-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/commons-cli-*.jar
+	Jakarta commons CLI reverted from 2.0-SNAPSHOT to 1.0.
+
+	* lib/xmlrpc-*.jar, lib/ws-commons-util-1.0.1.jar
+	XML-RPC-related Libraries updated.
+
+2006-08-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.5 released.
+
+	* src/ow/{messaging/emulator/EmuHostID.java,tool/emulator/EmulatorContext.java}
+	Race conditions on a variable nextID were removed.
+
+2006-07-04  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 3.0.11 to 3.0.12.
+
+	* build.xml, src/jnlp/overlayweaver.jnlp, bin/ow*
+	overlayweaver.jar includes classfiles in commons-cli...jar.
+
+2006-05-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/je.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 2.1.30 to 3.0.11.
+
+2006-05-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.4 released.
+
+	* src/ow/routing/tapestry/Tapestry.java
+	In Tapestry, a joining node does not wait for an acknowledged multicast message
+	if it has already received it.
+	This fix improves the time to join.
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	RoutingService#invokeCallbacksOnRoute() returns the returned value on the root node,
+	not the last non-null value.
+	This possibly makes DHT#remove() return null even though a value has been removed.
+
+2006-05-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.3 released.
+
+2006-05-13  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	Forwards to the successor and make it recalculate an imaginary ID
+	in case that a de Bruijn edge has not been prepared.
+	Does not adopt the node itself as one of successors.
+
+	* src/ow/id/IDAddressRoutingContextTriplet.java
+	Allows routing context to be null.
+
+2006-05-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Does not resume a Stabilizer thread on the joining node.
+
+2006-05-11  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.2 released.
+
+	* src/ow/routing/impl/IterativeRoutingDriver.java
+	A bug which causes a lookup (DHT#get) failure with Koorde fixed.
+
+2006-05-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3.1 released.
+
+	* src/ow/routing/linearwalker/LinearWalker.java
+	Changes the way to make an interval of stabilization longer.
+	A stabilizer suspends until the node connects with other nodes.
+
+	* src/ow/routing/impl/{Iterative,Recursive}RoutingDriver.java
+	The last non-null value returned from a callback is passed to the routing initiator.
+	Now DHT#remove() returns values.
+
+	* src/ow/dht/ValueInfo.java
+	Makes ValueInfo serializable.
+
+2006-05-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.3 released.
+
+	* src/ow/tool/dhtshell/{XMLRPCServer,Main}.java
+	DHT shell accepts XML-RPC queries if it is invoked with -x option.
+
+	* src/ow/dht/
+	DHT#put requires TTL. DHT#remove requires secret.
+
+	* src/ow/dht/impl/DHTImpl.java
+	A bug which does not stop() a reputter fixed.
+
+	* src/ow/dht/{AdvancedDHT,EntryUpdater,EntryFilter,ValueUpdater}.java
+	Classes for An advanced interface for DHT are moved to ow.dht.advanced package.
+
+	* src/ow/directory/expiration/AbstractExpiringDirectory.java
+	Expiring process is invoked by a timer (java.util.Timer), not running as a thread.
+
+2006-05-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.2.1 released.
+
+	* src/ow/routing/koorde/Koorde.java
+	Initial values of an imaginary ID in Koorde slightly improved.
+
+	* src/ow/routing/RoutingServiceConfiguration.java
+	TTL of routing decreased from 500 to 128.
+	All routings in Koorde with 4000 nodes complete in 49 hops.
+
+2006-05-01  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	Improves the way to calculate the initial value of an imaginary ID in Koorde.
+
+2006-04-29  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/{util/toolframework/,dhtshell/Main.java,mcastshell/Main.java,mrouted/Main.java}
+	Uses Jakarta Commons CLI library to parse command-line options.
+	Demo scenarios specify 0 instead of -1 to disable shell due to a limitation of the CLI.
+
+2006-04-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.2 released.
+
+	* src/ow/routing/koorde/Koorde.java
+	An optimization on successor selection in closestNodes() was not correct.
+	Fixed.
+
+2006-04-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/RoutingServiceConfiguration.java
+	TTL of routing increased from 300 to 500.
+	Most of routing in Koorde should complete in less than 3b = 480 hops (b = 160 bit).
+
+	* src/ow/routing/koorde/Koorde.java
+	Initial value of routing context corrected.
+	Variables i (imaginary ID) and kshift are m (self ID) + 1 (mod 2^b) not just m.
+
+2006-04-23  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/koorde/Koorde.java
+	A bug fixed. It was possible for an initial routing context
+	to have null as a member `kshift'.
+
+2006-04-22  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/RecursiveRoutingDriver.java
+	Does not stop routing even when the next hop is the initiator of routing
+	and routing context has not not been changed.
+	Stops routing only when routing context is null in case that the next hop is the initiator.
+
+2006-04-21  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/{Recursive,Iterative}RoutingDriver.java
+	Calls RoutingAlgorithm#initialRoutingContext() on the first contact,
+	not initiator, when joining.
+
+	* src/ow/routing/koorde/Koorde.java
+	The interval of edge update is determined adaptively.
+
+	* src/ow/{groupmanager/,tool/groupshell/}
+	GroupManager renamed to Mcast.
+
+2006-04-20  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/RoutingServiceConfiguration.java
+	TTL of routing increased from 128 to 300.
+	Koorde often gets over 128.
+
+	* src/ow/routing/koorde/
+	A DHT algorithm Koorde implemented.
+
+2006-04-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/Routing{Algorithm,Context}.java
+	Routing context introduced to implement Koorde.
+
+2006-04-10  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.6 released.
+
+	* build.xml
+	Removes CVS-related files in addition to Eclipse files when a target "distclean" invoked.
+
+	* src/ow/tool/msgvisualizer/ImageManager.java
+	Reads GIF files instead of PNG files.
+	JDK on Windows cannot show a PNG image when it is invoked via command-line.
+
+2006-04-07  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/groupmanager/impl/GroupManagerImpl.java
+	A bug in floodMessage() which causes NullPointerException fixed.
+
+2006-03-26  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.5 released.
+
+2006-03-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/{linearwalker/LinearWalker,chord/ChordInAgg..}.java
+	Linear Walker in aggressive mode asks the successor to make itself
+	the predecessor.
+
+2006-03-24  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.4 released.
+
+	* src/ow/routing/{chord,linearwalker}/
+	Chord was decoupled to "Linear Walker" and finger table handling.
+	"Linear Walker" works individually.
+
+2006-02-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.3 released.
+
+	* src/ow/dht/{DHTImpl,DHTFilter}.java
+	DHTFilter was moved out from DHTImpl and now it is serializable.
+
+2006-01-31  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.2 released.
+
+	* lib/je.jar
+	Berkeley DB Java Edition was updated from 2.0.90 to 2.1.30.
+
+2006-01-30  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/{dht/DHT.java,groupmanger/GroupManager.java}
+	Renamed `initialize' methods to `joinOverlay'.
+
+2006-01-19  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1.1 released.
+
+2006-01-18  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/emulator/
+	Emulator can now connect to existing processes via TCP and control
+	them. It accepts -c option with hostname list file.
+
+	* src/ow/messaging/Tag.java
+	Messages for UDP hole punching are not reported to a stat
+	collector (e.g. message counter and visualizer).
+
+2006-01-17  Kazuyuki Shudo  <shudo@computer.org>
+
+	* 0.1 released.

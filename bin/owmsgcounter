@@ -1,0 +1,27 @@
+#!/bin/sh
+
+program=$0
+while test -h $program; do
+	program=`readlink $program`
+done
+
+cygwin=false
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+esac
+
+BIN_DIR=`dirname $program`
+OW_HOME=${OW_HOME:-$BIN_DIR/..}
+LIB_DIR=$OW_HOME/lib
+TARGET_DIR=$OW_HOME/target
+BUILD_DIR=$OW_HOME/build
+
+CLASSPATH=$BUILD_DIR:$TARGET_DIR/overlayweaver.jar:$LIB_DIR/commons-cli-1.2.jar:$LIB_DIR/clink200.jar
+LOGGING_CONFIG=$BIN_DIR/logging.properties
+if $cygwin; then
+  CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+  LOGGING_CONFIG=`cygpath --path --windows "$LOGGING_CONFIG"`
+fi
+export CLASSPATH
+
+exec java -Djava.util.logging.config.file=$LOGGING_CONFIG ow.tool.msgcounter.Main "$@"

@@ -1,0 +1,13 @@
+# DHT benchmark
+
+class ow.dht.DHTBenchmark
+
+# invoke 9 nodes
+arg -r Iterative -a Chord
+schedule 0 invoke
+arg -r Iterative -a Chord emu0
+schedule 200,200,8 invoke
+
+# invoke a benchmarking node, which issues 10000 `get' queries.
+arg -r Iterative -a Chord -b 10000 emu0
+schedule 3000 invoke

@@ -1,0 +1,23 @@
+# Invokes an Overlay Visualizer and 20 instances of DHT shell
+
+timeoffset 2000
+
+# invokes an Ovelray Visualizer
+class ow.tool.visualizer.Main
+schedule 0 invoke
+
+# invokes the 1st DHT shell
+class ow.tool.dhtshell.Main
+#class ow.tool.mcastshell.Main
+arg -m emu0
+schedule 6000 invoke
+
+# invokes 19 DHT shells
+arg -m emu0 emu1
+schedule 6000,1000,19 invoke
+
+# emu1, emu13, emu6 and emu12 periodically keep querying
+schedule 25000,4000 control 1 get mno
+schedule 26000,4000 control 13 get yyy
+schedule 27000,4000 control 6 get def
+schedule 28000,4000 control 12 get ddd

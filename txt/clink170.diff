@@ -1,0 +1,112 @@
+--- ./org/cybergarage/util/ThreadCore.java.orig	2007-08-23 20:44:00.000000000 +0900
++++ ./org/cybergarage/util/ThreadCore.java	2007-08-23 20:45:10.000000000 +0900
+@@ -64,6 +64,8 @@
+ 		if (threadObject != null) { 
+ 			//threadObject.destroy();
+ 			//threadObject.stop();
++
++			threadObject.interrupt();
+ 			setThreadObject(null);
+ 		}
+ 	}
+--- ./org/cybergarage/upnp/ssdp/HTTPMUSocket.java.orig	2007-08-23 20:33:14.000000000 +0900
++++ ./org/cybergarage/upnp/ssdp/HTTPMUSocket.java	2007-08-23 20:35:29.000000000 +0900
+@@ -26,6 +26,7 @@
+ 
+ import java.net.*;
+ import java.util.*;
++import java.io.IOException;
+ 
+ import org.cybergarage.http.*;
+ import org.cybergarage.util.*;
+@@ -120,6 +121,7 @@
+ 			
+ 		try {
+ 			ssdpMultiSock.leaveGroup(ssdpMultiGroup, ssdpMultiIf);
++			ssdpMultiSock.close();
+ 			ssdpMultiSock = null;
+ 		}
+ 		catch (Exception e) {
+@@ -180,18 +182,15 @@
+ 	//	reveive
+ 	////////////////////////////////////////////////
+ 
+-	public SSDPPacket receive()
++	public SSDPPacket receive() throws IOException
+ 	{
+ 		byte ssdvRecvBuf[] = new byte[SSDP.RECV_MESSAGE_BUFSIZE];
+  		SSDPPacket recvPacket = new SSDPPacket(ssdvRecvBuf, ssdvRecvBuf.length);
+ 		recvPacket.setLocalAddress(getLocalAddress());
+- 		try {
+-			ssdpMultiSock.receive(recvPacket.getDatagramPacket());
+-			recvPacket.setTimeStamp(System.currentTimeMillis());
+-		}
+-		catch (Exception e) {
+-			//Debug.warning(e);
+-		}
++		ssdpMultiSock.receive(recvPacket.getDatagramPacket());
++			// throws IOException
++		recvPacket.setTimeStamp(System.currentTimeMillis());
++
+  		return recvPacket;
+ 	}
+ }
+--- ./org/cybergarage/upnp/ssdp/SSDPSearchSocket.java.orig	2007-08-23 20:33:49.000000000 +0900
++++ ./org/cybergarage/upnp/ssdp/SSDPSearchSocket.java	2007-08-23 20:38:46.000000000 +0900
+@@ -23,6 +23,8 @@
+ 
+ package org.cybergarage.upnp.ssdp;
+ 
++import java.io.IOException;
++
+ import org.cybergarage.net.*;
+ import org.cybergarage.util.*;
+ 
+@@ -97,7 +99,11 @@
+ 		
+ 		while (deviceSearchThread == thisThread) {
+ 			Thread.yield();
+-			SSDPPacket packet = receive();
++			SSDPPacket packet = null;
++			try {
++			    packet = receive();
++			}
++			catch (IOException e) { break; }
+ 			
+ 			// Thanks for Mikael Hakman (04/20/05)
+ 			if (packet == null)
+--- ./org/cybergarage/upnp/ssdp/SSDPNotifySocket.java.orig	2007-08-23 20:33:36.000000000 +0900
++++ ./org/cybergarage/upnp/ssdp/SSDPNotifySocket.java	2007-08-23 20:36:59.000000000 +0900
+@@ -25,6 +25,7 @@
+ package org.cybergarage.upnp.ssdp;
+ 
+ import java.net.*;
++import java.io.IOException;
+ 
+ import org.cybergarage.net.*;
+ import org.cybergarage.util.*;
+@@ -94,7 +95,11 @@
+ 		
+ 		while (deviceNotifyThread == thisThread) {
+ 			Thread.yield();
+-			SSDPPacket packet = receive();
++			SSDPPacket packet = null;
++			try {
++			    packet = receive();
++			}
++			catch (IOException e) { break; }
+ 			
+ 			// Thanks for Mikael Hakman (04/20/05)
+ 			if (packet == null)
+--- ./org/cybergarage/upnp/UPnP.java.orig	2007-08-24 04:19:12.000000000 +0900
++++ ./org/cybergarage/upnp/UPnP.java	2007-08-24 04:19:37.000000000 +0900
+@@ -206,7 +206,8 @@
+ 		// Interface Option
+ 		////////////////////////////
+ 		
+-		setXMLParser(new XercesParser());
++		setXMLParser(new JaxpParser());
++		//setXMLParser(new XercesParser());
+ 		//setXMLParser(new kXML2Parser());
+ 		
+ 		////////////////////////////

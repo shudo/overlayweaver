@@ -1,0 +1,34 @@
+C library here speaks IGMP and IP multicast to support ow.ipmulticast package.
+
+Part of C code here is based on pimd-2.1.0-alpha29.17.
+
+* The same as pimd
+
+  vif.h
+
+* Slightly modified
+
+  inet.c
+  kern.c
+
+* Extracted from corresponding files of pimd
+
+  config.c
+  vif.c
+
+* Developed independently
+
+  igmp.c    Speaks IGMP.
+  dgram.c   Speaks IP multicast datagrams.
+  util.c
+  glue.c    Glue code which bridges Java and C.
+  test.c
+  common.h
+  Makefile
+
+The pimd program is covered by the license in the accompanying file
+named "LICENSE.pimd-2.1.0-alpha29.17".
+
+Part of the pimd program has been derived from mrouted.
+The mrouted program is covered by the license in the accompanying file
+named "LICENSE.mtouted".

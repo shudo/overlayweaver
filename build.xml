@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  =================================
+  Ant build file for Overlay Weaver
+  =================================
+
+  Targets:
+  jar (default)  Builds the target JAR file target/overlayweaver.jar.
+  jnlp           Generates a JNLP file and signs the JAR file.
+  javadoc        Generates Javadoc HTML files under docs/.
+  clean          Deletes all JAR files, compiled class files and Javadoc files.
+  dist           Prepares for distribution.
+                 Builds and clean up files excepts resulting JARs.
+-->
+
+<project name="overlayweaver" default="jar" basedir=".">
+	<!-- Give an user a chance to override without editing this file 
+		(and without typing -D each time it compiles it) -->
+	<property file="${user.home}/.ant.properties" />
+	<property file=".ant.properties" />
+
+	<!-- set global properties for this build -->
+
+	<!-- javadoc properties -->
+	<property name="javadoc.header" value="Overlay Weaver"/>
+	<property name="javadoc.windowtitle" value="Overlay Weaver"/>
+	<property name="je.src.dir" value="/usr/local/javalib/je-5.0.73/src"/>
+
+	<!-- directories -->
+	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="build.dir" value="${basedir}/build"/>
+
+	<property name="target.dir" value="${basedir}/target"/>
+	<property name="javadoc.dir" value="${basedir}/docs"/>
+
+	<property name="main.src.dir" value="${basedir}/src"/>
+	<property name="main.build.dir" value="${basedir}/build/main"/>
+
+	<property name="test.src.dir" value="${basedir}/test"/>
+	<property name="test.build.dir" value="${basedir}/build/test"/>
+
+	<property name="main.jar" value="${target.dir}/overlayweaver.jar"/>
+	<property name="test.jar" value="${target.dir}/test.jar"/>
+
+	<!-- for JNLP (Java Web Start) -->
+	<property name="jnlp.src.dir" value="${main.src.dir}/jnlp"/>
+	<property name="target.jnlp.dir" value="${target.dir}/jnlp"/>
+	<property name="main.signed.jar" value="${target.jnlp.dir}/overlayweaver-signed.jar"/>
+	<property name="cli.jar" value="${lib.dir}/commons-cli-1.2.jar"/>
+	<property name="cli.signed.jar" value="${target.jnlp.dir}/commons-cli-1.2-signed.jar"/>
+	<property name="jnlp.codebase" value="http://www.shudo.net/owdemo/"/>
+
+	<!-- main classes -->
+	<property name="main.class.name" value="ow.tool.emulator.Main"/>
+
+	<!-- compile flags -->
+	<property name="target.vm.ver" value="5"/>
+	<property name="debug" value="on"/>
+	<property name="deprecation" value="on"/>
+	<property name="optimize" value="on"/>
+
+	<!-- classpath -->
+	<path id="cli.classpath">
+		<pathelement location="${lib.dir}/commons-cli-1.2.jar"/>
+	</path>
+	<path id="je.classpath">
+		<pathelement location="${lib.dir}/je-5.0.73.jar"/>
+	</path>
+	<path id="xmlrpc.classpath">
+		<pathelement location="${lib.dir}/xmlrpc-common-3.1.3.jar"/>
+		<pathelement location="${lib.dir}/xmlrpc-server-3.1.3.jar"/>
+		<pathelement location="${lib.dir}/ws-commons-util-1.0.2.jar"/>
+	</path>
+	<path id="jetty.classpath">
+		<pathelement location="${lib.dir}/servlet-api-3.0.jar"/>
+	</path>
+	<path id="upnp.classpath">
+		<pathelement location="${lib.dir}/clink200.jar"/>
+	</path>
+
+	<path id="compile.main.classpath">
+		<path refid="cli.classpath"/>
+		<path refid="xmlrpc.classpath"/>
+		<path refid="jetty.classpath"/>
+		<path refid="je.classpath"/>
+		<path refid="upnp.classpath"/>
+	</path>
+
+	<path id="compile.test.classpath">
+		<path refid="compile.main.classpath"/>
+		<pathelement location="${main.build.dir}"/>
+	</path>
+
+	<!-- Eclipse-and-CVS-related files -->
+	<fileset dir="${basedir}" id="eclipse.file" defaultexcludes="no">
+		<include name=".classpath"/>
+		<include name=".project"/>
+		<include name=".cdtproject"/>
+		<include name=".settings/**"/>
+	</fileset>
+	<fileset dir="${basedir}" id="cvs.file" defaultexcludes="no">
+		<include name=".cvsignore"/>
+		<include name="**/CVS/**"/>
+		<include name="**/CVS"/>
+	</fileset>
+
+	<!-- targets -->
+
+	<!-- target: jar -->
+	<target name="jar"
+		depends="jar.main"/>
+
+	<target name="jar.main" depends="clean.main.jar, compile.main">
+		<mkdir dir="${target.dir}"/>
+		<!-- prepare commons-cli...jar -->
+		<unzip src="${cli.jar}" dest="${main.build.dir}"/>
+		<!-- pack -->
+		<jar destfile="${main.jar}" basedir="${main.build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main.class.name}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="jar.test" depends="clean.test.jar, compile.test">
+		<mkdir dir="${target.dir}"/>
+		<jar destfile="${test.jar}" basedir="${test.build.dir}"/>
+	</target>
+
+	<!-- target: compile -->
+	<target name="compile"
+		depends="compile.main"/>
+
+	<target name="compile.main">
+		<mkdir dir="${main.build.dir}"/>
+		<javac srcdir="${main.src.dir}"
+			destdir="${main.build.dir}"
+			classpathref="compile.main.classpath"
+			includeAntRuntime="false"
+			debug="${debug}" deprecation="${deprecation}" optimize="${optimize}"/>
+			<!-- target="${target.vm.ver}" -->
+
+		<copy todir="${main.build.dir}">
+			<fileset dir="${main.src.dir}">
+				<include name="*.properties"/>
+				<include name="resources/**"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile.test" depends="compile.main">
+		<mkdir dir="${test.build.dir}"/>
+		<javac srcdir="${test.src.dir}"
+			destdir="${test.build.dir}"
+			classpathref="compile.test.classpath"
+			debug="${debug}" deprecation="${deprecation}" optimize="${optimize}"/>
+	</target>
+			<!-- target="${target.vm.ver}" -->
+
+	<!-- target: dist -->
+	<target name="dist" depends="distclean">
+		<antcall target="jar"/>
+		<antcall target="javadoc"/>
+		<antcall target="clean.build"/>
+	</target>
+
+	<!-- target: JNLP (Java Web Start) -->
+	<target name="jnlp" depends="jar"
+			description="prepares for Java Web Start">
+		<copy todir="${target.jnlp.dir}" overwrite="true">
+<!--
+			<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+			</fileset>
+-->
+			<fileset dir="${jnlp.src.dir}">
+				<include name="*.jnlp"/>
+				<include name="*.html"/>
+				<include name=".htaccess"/>
+				<include name="*Scenario"/>
+			</fileset>
+		</copy>
+		<replace dir="${target.jnlp.dir}" summary="yes">
+			<include name="**/*.jnlp"/>
+			<include name="**/*.html"/>
+			<replacefilter token="@@jnlp.codebase@@" value="${jnlp.codebase}"/>
+		</replace>
+		<signjar jar="${main.jar}" alias="myalias"
+			storepass="storepass" keypass="keypass"
+			keystore="${jnlp.src.dir}/mykeystore.jks" storetype="jks"
+			signedjar="${main.signed.jar}"/>
+<!--
+		<signjar jar="${cli.jar}" alias="myalias"
+			storepass="storepass" keypass="keypass"
+			keystore="${jnlp.src.dir}/mykeystore.jks" storetype="jks"
+			signedjar="${cli.signed.jar}"/>
+-->
+	</target>
+
+	<!-- target: javadoc -->
+	<target name="javadoc">
+		<javadoc
+			packagenames="ow.*"
+			defaultexcludes="yes"
+			private="yes"
+			destdir="${javadoc.dir}"
+			windowtitle="${javadoc.windowtitle}"
+			header="${javadoc.header}">
+			<classpath refid="compile.main.classpath"/>
+			<classpath path="${je.src.dir}"/>
+			<fileset dir="${main.src.dir}">
+				<include name="**/*.java"/>
+				<!-- <exclude name="exclude"/> -->
+			</fileset>
+		</javadoc>
+	</target>
+
+	<!-- target: clean -->
+	<target name="clean"
+		depends="clean.javadoc, clean.jar, clean.build">
+	</target>
+
+	<target name="distclean"
+		depends="clean">
+<!--
+		<defaultexcludes remove="**/.cvsignore"/>
+		<defaultexcludes remove="**/CVS"/>
+		<defaultexcludes remove="**/CVS/**"/>
+-->
+		<delete includeemptydirs="true" quiet="true">
+			<fileset refid="eclipse.file"/>
+			<fileset refid="cvs.file"/>
+		</delete>
+		<defaultexcludes default="true"/>
+	</target>
+
+	<target name="clean.javadoc">
+		<delete dir="${javadoc.dir}"/>
+	</target>
+
+	<target name="clean.jar"
+		depends="clean.main.jar, clean.test.jar">
+		<delete dir="${target.dir}"/>
+	</target>
+
+	<target name="clean.main.jar">
+		<delete file="${main.jar}"/>
+	</target>
+
+	<target name="clean.test.jar">
+		<delete file="${test.jar}"/>
+	</target>
+
+	<target name="clean.build"
+		depends="clean.main.build, clean.test.build">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="clean.main.build">
+		<delete dir="${main.build.dir}"/>
+	</target>
+
+	<target name="clean.test.build">
+		<delete dir="${test.build.dir}"/>
+	</target>
+</project>

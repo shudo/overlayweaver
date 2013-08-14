@@ -1,0 +1,15 @@
+# A scenario invoking 100 DHT shell instances
+timeoffset 3000
+
+class ow.tool.msgcounter.Main
+schedule 0 invoke
+
+# invoke
+class ow.tool.dhtshell.Main
+#class ow.tool.mcastshell.Main
+arg -m emu0
+schedule 1000,250,100 invoke
+
+schedule 1000,10000 control 0 status
+
+timeoffset 29000

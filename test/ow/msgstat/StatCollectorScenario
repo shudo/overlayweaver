@@ -1,0 +1,11 @@
+class ow.msgstat.StatCollectorTest
+schedule 0 invoke
+
+class ow.tool.dhtshell.Main
+arg -p 10000 -m emu0
+schedule 1000 invoke
+
+arg -p 10001 -m emu0 emu1
+schedule 2000 invoke
+arg -p 10002 -m emu0 emu2
+schedule 3000 invoke

@@ -1,0 +1,125 @@
+--- ./server/src/main/java/org/apache/xmlrpc/webserver/XmlRpcServlet.java.orig	2009-05-01 11:15:18.000000000 +0900
++++ ./server/src/main/java/org/apache/xmlrpc/webserver/XmlRpcServlet.java	2009-05-01 11:17:50.000000000 +0900
+@@ -22,6 +22,8 @@
+ import java.lang.reflect.InvocationTargetException;
+ import java.net.URL;
+ import java.util.Enumeration;
++import java.util.logging.Level;
++import java.util.logging.Logger;
+ 
+ import javax.servlet.ServletConfig;
+ import javax.servlet.ServletException;
+@@ -29,8 +31,6 @@
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse;
+ 
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
+ import org.apache.xmlrpc.XmlRpcConfig;
+ import org.apache.xmlrpc.XmlRpcException;
+ import org.apache.xmlrpc.common.TypeConverterFactory;
+@@ -56,7 +56,7 @@
+  */
+ public class XmlRpcServlet extends HttpServlet {
+ 	private static final long serialVersionUID = 2348768267234L;
+-	private static final Log log = LogFactory.getLog(XmlRpcServlet.class);
++	private static final Logger log = Logger.getLogger(XmlRpcServlet.class.getName());
+     private XmlRpcServletServer server;
+     private AbstractReflectiveHandlerMapping.AuthenticationHandler authenticationHandler;
+     private RequestProcessorFactoryFactory requestProcessorFactoryFactory;
+@@ -201,6 +201,6 @@
+     }
+ 
+     public void log(String pMessage) {
+-        log.info(pMessage);
++        log.log(Level.INFO, pMessage);
+     }
+ }
+--- ./server/src/main/java/org/apache/xmlrpc/server/XmlRpcStreamServer.java.orig	2009-05-01 11:19:48.000000000 +0900
++++ ./server/src/main/java/org/apache/xmlrpc/server/XmlRpcStreamServer.java	2009-05-01 11:21:24.000000000 +0900
+@@ -23,11 +23,11 @@
+ import java.io.InputStream;
+ import java.io.OutputStream;
+ import java.util.List;
++import java.util.logging.Level;
++import java.util.logging.Logger;
+ import java.util.zip.GZIPInputStream;
+ import java.util.zip.GZIPOutputStream;
+ 
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
+ import org.apache.xmlrpc.XmlRpcException;
+ import org.apache.xmlrpc.XmlRpcRequest;
+ import org.apache.xmlrpc.XmlRpcRequestConfig;
+@@ -51,7 +51,7 @@
+  */
+ public abstract class XmlRpcStreamServer extends XmlRpcServer
+ 		implements XmlRpcStreamRequestProcessor {
+-	private static final Log log = LogFactory.getLog(XmlRpcStreamServer.class);
++	private static final Logger log = Logger.getLogger(XmlRpcStreamServer.class.getName());
+ 	private XmlWriterFactory writerFactory = new DefaultXMLWriterFactory();
+ 	private static final XmlRpcErrorLogger theErrorLogger = new XmlRpcErrorLogger();
+ 	private XmlRpcErrorLogger errorLogger = theErrorLogger;
+@@ -189,7 +189,7 @@
+ 	public void execute(XmlRpcStreamRequestConfig pConfig,
+ 						ServerStreamConnection pConnection)
+ 			throws XmlRpcException {
+-		log.debug("execute: ->");
++		log.log(Level.INFO, "execute: ->");
+ 		try {
+ 			Object result;
+ 			Throwable error;
+@@ -201,7 +201,7 @@
+ 				istream.close();
+ 				istream = null;
+ 				error = null;
+-				log.debug("execute: Request performed successfully");
++				log.log(Level.INFO, "execute: Request performed successfully");
+ 			} catch (Throwable t) {
+ 				logError(t);
+ 				result = null;
+@@ -249,7 +249,7 @@
+ 		} finally {
+ 			if (pConnection != null) { try { pConnection.close(); } catch (Throwable ignore) {} }
+ 		}
+-		log.debug("execute: <-");
++		log.log(Level.INFO, "execute: <-");
+ 	}
+ 
+     protected void logError(Throwable t) {
+--- ./server/src/main/java/org/apache/xmlrpc/server/XmlRpcErrorLogger.java.orig	2009-05-01 11:21:33.000000000 +0900
++++ ./server/src/main/java/org/apache/xmlrpc/server/XmlRpcErrorLogger.java	2009-05-01 11:22:56.000000000 +0900
+@@ -18,8 +18,8 @@
+  */
+ package org.apache.xmlrpc.server;
+ 
+-import org.apache.commons.logging.Log;
+-import org.apache.commons.logging.LogFactory;
++import java.util.logging.Level;
++import java.util.logging.Logger;
+ 
+ 
+ /**
+@@ -27,19 +27,19 @@
+  * error logging.
+  */
+ public class XmlRpcErrorLogger {
+-    private static final Log log = LogFactory.getLog(XmlRpcErrorLogger.class);
++    private static final Logger log = Logger.getLogger(XmlRpcErrorLogger.class.getName());
+ 
+     /**
+      * Called to log the given error.
+      */
+     public void log(String pMessage, Throwable pThrowable) {
+-        log.error(pMessage, pThrowable);
++        log.log(Level.SEVERE, pMessage, pThrowable);
+     }
+ 
+     /**
+      * Called to log the given error message.
+      */
+     public void log(String pMessage) {
+-        log.error(pMessage);
++        log.log(Level.SEVERE, pMessage);
+     }
+ }

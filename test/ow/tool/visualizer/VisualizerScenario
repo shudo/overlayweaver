@@ -1,0 +1,51 @@
+class ow.tool.visualizer.Main
+schedule 0 invoke
+
+timeoffset 5000
+
+#class ow.tool.dhtshell.Main
+class ow.tool.mcastshell.Main
+arg -p 10001 -m emu0
+schedule 0000 invoke
+
+arg -p 10002 -m emu0 emu1
+schedule 1000 invoke
+arg -p 10003 -m emu0 emu2
+schedule 2000 invoke
+arg -p 10004 -m emu0 emu3
+schedule 3000 invoke
+arg -p 10005 -m emu0 emu4
+schedule 4000 invoke
+arg -p 10006 -m emu0 emu5
+schedule 5000 invoke
+arg -p 10007 -m emu0 emu6
+schedule 6000 invoke
+arg -p 10008 -m emu0 emu7
+schedule 7000 invoke
+arg -p 10009 -m emu0 emu8
+schedule 8000 invoke
+arg -p 10010 -m emu0 emu9
+schedule 9000 invoke
+arg -p 10011 -m emu0 emu10
+schedule 10000 invoke
+arg -p 10012 -m emu0 emu11
+schedule 11000 invoke
+arg -p 10013 -m emu0 emu12
+schedule 12000 invoke
+arg -p 10014 -m emu0 emu13
+schedule 13000 invoke
+arg -p 10015 -m emu0 emu14
+schedule 14000 invoke
+arg -p 10016 -m emu0 emu15
+schedule 15000 invoke
+arg -p 10017 -m emu0 emu16
+schedule 16000 invoke
+arg -p 10018 -m emu0 emu17
+schedule 17000 invoke
+arg -p 10019 -m emu0 emu18
+schedule 18000 invoke
+arg -p 10020 -m emu0 emu19
+schedule 19000 invoke
+
+#arg -p 0 -m emu0 emu1
+#schedule 20000,1000,30 invoke

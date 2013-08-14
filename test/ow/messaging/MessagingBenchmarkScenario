@@ -1,0 +1,6 @@
+class ow.messaging.MessagingBenchmark
+arg -r 1000000
+schedule 0 invoke
+
+arg -r 1000000 emu0
+schedule 1000 invoke

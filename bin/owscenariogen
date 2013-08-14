@@ -1,0 +1,28 @@
+#!/bin/sh
+
+program=$0
+while test -h $program; do
+	program=`readlink $program`
+done
+
+cygwin=false
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+esac
+
+BIN_DIR=`dirname $program`
+OW_HOME=${OW_HOME:-$BIN_DIR/..}
+LIB_DIR=$OW_HOME/lib
+TARGET_DIR=$OW_HOME/target
+BUILD_DIR=$OW_HOME/build
+
+CLASSPATH=$BUILD_DIR:$TARGET_DIR/overlayweaver.jar
+if $cygwin; then
+  CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+fi
+export CLASSPATH
+
+JVM_OPTION=
+#JVM_OPTION="-server"
+
+exec java $JVM_OPTION ow.tool.scenariogen.Main "$@"

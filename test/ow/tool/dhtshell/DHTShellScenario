@@ -1,0 +1,48 @@
+# A scenario invoking 10 DHT shell instances.
+# All instances wait for a connection on each port (10001-10009).
+
+# invoke a Message Counter
+class ow.tool.msgcounter.Main
+schedule 0 invoke
+
+# invoke DHT shell instances
+class ow.tool.dhtshell.Main
+#class ow.tool.mcastshell.Main
+
+timeoffset 1000
+arg -p 10001 -a Chord -r Iterative
+schedule 0 invoke
+timeoffset 2000
+arg -p 10002 -a Chord -r Iterative
+schedule 0 invoke
+arg -p 10003 -a Chord -r Iterative
+schedule 200 invoke
+arg -p 10004 -a Chord -r Iterative
+schedule 400 invoke
+arg -p 10005 -a Chord -r Iterative
+schedule 600 invoke
+arg -p 10006 -a Chord -r Iterative
+schedule 800 invoke
+arg -p 10007 -a Chord -r Iterative
+schedule 1000 invoke
+arg -p 10008 -a Chord -r Iterative
+schedule 1200 invoke
+arg -p 10009 -a Chord -r Iterative
+schedule 1400 invoke
+arg -p 10010 -a Chord -r Iterative
+schedule 1600 invoke
+
+# join an overlay
+timeoffset 5000
+schedule 0 control 2 init emu1
+schedule 200 control 3 init emu1
+schedule 400 control 4 init emu1
+schedule 600 control 5 init emu1
+schedule 800 control 6 init emu1
+schedule 1000 control 7 init emu1
+schedule 1200 control 8 init emu1
+schedule 1400 control 9 init emu1
+schedule 1600 control 10 init emu1
+
+# keep the emulator running
+schedule inf control all halt

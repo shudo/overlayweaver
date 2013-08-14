@@ -1,0 +1,33 @@
+# invoke 5 instances of DHT shell
+class ow.tool.dhtshell.Main
+arg -r Iterative -a Chord
+
+sched 0 invoke
+sched 3000,100,4 invoke
+
+# join
+sched 5000 control 1 init emu0
+sched 6000 control 2 init emu0
+sched 7000 control 3 init emu0
+sched 8000 control 4 init emu0
+
+# put
+sched 10000 control 2 setttl 600
+sched 10010 control 2 setsecret shudo
+sched 11000 control 2 put foo bar
+
+# clear routing table on emu2
+sched 12000 control 2 clear routingtable
+sched 12010 control 2 status
+sched 13000 control 2 init emu0
+sched 14000 control 2 status
+
+# kill emu2 and invoke another node (emu5)
+sched 16000 control 2 halt
+sched 16010 invoke 2
+sched 17000 control 2 init emu0
+
+sched 18000 control 2 status
+
+# halt
+sched 20000 halt

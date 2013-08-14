@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Demonstration of Overlay Weaver</title>
+</head>
+
+
+<script Language="Javascript">
+var javawsInstalled = 0;
+isIE = "false";
+
+if (navigator.mimeTypes && navigator.mimeTypes.length) {
+//	x = navigator.mimeTypes['application/x-java-jnlp-file'];
+//	if (x) javawsInstalled = 1;
+	javawsInstalled = 1;	// disable the check for Mozilla/Navigator
+} else {
+	isIE = "true";
+}
+
+function insertLink(url, name) {
+	if (javawsInstalled) {
+		document.write("<A HREF=" + url + ">"  + name + "</A>");
+	} else {
+		document.write("Need to install Java Web Start.<BR>");
+		document.write("Follow the <A HREF=http://java.sun.com/getjava/>instruction</A>.");
+	}
+}
+</script>
+
+<script Language="VBScript">
+on error resume next
+If isIE = "true" Then
+	If Not(IsObject(CreateObject("JavaWebStart.IsInstalled"))) Then
+		javawsInstalled = 0
+	Else
+		javawsInstalled = 1
+	End If
+End If
+</script>
+
+
+<body>
+
+<h1>Overlay Weaver</h1>
+
+<ul>
+<li>
+<script LANGUAGE="Javascript">
+<!--
+insertLink("overlayweaver.jnlp", "Demonstration");
+// -->
+</script>
+</ul>
+
+</body>
+</html>
