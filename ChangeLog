@@ -1,3 +1,8 @@
+2013-09-12  Kazuyuki Shudo  <shudo@computer.org>
+
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 9.0.4 to 9.0.5.
+
 2013-08-14  Kazuyuki Shudo  <shudo@computer.org>
 
 	* lib/{servlet-api-*,jetty-*}.jar
