@@ -1,3 +1,9 @@
+2013-11-02  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/dht/{impl/ChurnTolerantDHTImpl,DHTConfiguration}.java
+	A bug in Reputter was fixed.
+	Reputter puts up to 100 key-value pairs. 101st pair is not put.
+
 2013-09-12  Kazuyuki Shudo  <shudo@computer.org>
 
 	* lib/{servlet-api-*,jetty-*}.jar

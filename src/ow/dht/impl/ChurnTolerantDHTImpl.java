@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2011 National Institute of Advanced Industrial Science
+ * Copyright 2006-2011,2013 National Institute of Advanced Industrial Science
  * and Technology (AIST), and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -638,7 +638,6 @@ System.out.println("  key : " + entry.getKey());
 
 			int interval = config.getReputParameters()[0];
 			int numOfKeysPerInterval = config.getReputParameters()[1];
-			int numOfIntervals = config.getReputParameters()[2];
 
 			MultiValueDirectory<ID,ValueInfo<V>> dir;
 
@@ -655,10 +654,7 @@ System.out.println("  key : " + entry.getKey());
 
 				outer_most_loop:
 				while (true) {
-					// reset key index
-					if (keys != null) {
-						if (keyIndex >= numOfKeysPerInterval * numOfIntervals) keyIndex = 0;
-					}
+					if (!daemonsRunning) break outer_most_loop;
 
 					// obtain an array of keys
 					synchronized (dir) {
@@ -672,50 +668,49 @@ System.out.println("  key : " + entry.getKey());
 						}
 					}
 
-					for (int i = 0; i < numOfIntervals; i++) {
-						if (!daemonsRunning) break outer_most_loop;
+					// reput values
+					if (keys != null) {
+						for (int j = 0; j < numOfKeysPerInterval; j++, keyIndex++) {
+							if (keyIndex >= keys.length) {
+								keyIndex = 0;
+								break;
+							}
 
-						// reput values
-						if (keys != null) {
-							int limit = keyIndex + numOfKeysPerInterval;
-							for (; keyIndex < limit; keyIndex++) {
 //System.out.println("keyIndex: " + keyIndex);
-								if (keyIndex >= keys.length) continue;
+							ID key = keys[keyIndex];
 
-								ID key = keys[keyIndex];
+							Set<ValueInfo<V>> valueInfoSet = getValueLocally(key, dir);
+							if (valueInfoSet == null) continue;
 
-								Set<ValueInfo<V>> valueInfoSet = getValueLocally(key, dir);
-								if (valueInfoSet == null) continue;
-
-								Map<ValueInfo.Attributes,Set<V>> attrValueMap =
+							Map<ValueInfo.Attributes,Set<V>> attrValueMap =
 									new HashMap<ValueInfo.Attributes,Set<V>>();
-								for (ValueInfo<V> v: valueInfoSet) {
-									Set<V> vSet = attrValueMap.get(v.getAttributes());
-									if (vSet == null) {
-										vSet = new HashSet<V>();
-										attrValueMap.put(v.getAttributes(), vSet);
-									}
-
-									vSet.add(v.getValue());
+							for (ValueInfo<V> v: valueInfoSet) {
+								Set<V> vSet = attrValueMap.get(v.getAttributes());
+								if (vSet == null) {
+									vSet = new HashSet<V>();
+									attrValueMap.put(v.getAttributes(), vSet);
 								}
 
-								for (ValueInfo.Attributes attr: attrValueMap.keySet()) {
-									Set<V> vSet = attrValueMap.get(attr);
-									V[] values = (V[])new Serializable[vSet.size()];
-									vSet.toArray(values);
+								vSet.add(v.getValue());
+							}
 
-									DHT.PutRequest<V>[] reqs = new DHT.PutRequest/*<V>*/[1];
-									reqs[0] = new DHT.PutRequest<V>(key, values);
+							for (ValueInfo.Attributes attr: attrValueMap.keySet()) {
+								Set<V> vSet = attrValueMap.get(attr);
+								V[] values = (V[])new Serializable[vSet.size()];
+								vSet.toArray(values);
 
-									int numReplica, repeat;
-									if (config.getResponsibleNodeDoesReplication()) {
-										numReplica = config.getNumReplica();
-										repeat = 1;
-									}
-									else {
-										numReplica = 1;
-										repeat = config.getNumReplica();
-									}
+								DHT.PutRequest<V>[] reqs = new DHT.PutRequest/*<V>*/[1];
+								reqs[0] = new DHT.PutRequest<V>(key, values);
+
+								int numReplica, repeat;
+								if (config.getResponsibleNodeDoesReplication()) {
+									numReplica = config.getNumReplica();
+									repeat = 1;
+								}
+								else {
+									numReplica = 1;
+									repeat = config.getNumReplica();
+								}
 
 //System.out.println("reput:");
 //for (int j = 0; j < reqs.length; j++) {
@@ -725,32 +720,31 @@ System.out.println("  key : " + entry.getKey());
 //	}
 //	System.out.println();
 //}
-									Set<ValueInfo<V>>[] ret =
-										putOrRemoveRemotely(reqs, false, attr.getTTL(), attr.getHashedSecret(), false,
-												numReplica, repeat, false);
+								Set<ValueInfo<V>>[] ret =
+									putOrRemoveRemotely(reqs, false, attr.getTTL(), attr.getHashedSecret(), false,
+											numReplica, repeat, false);
 
-									for (int j = 0; j < reqs.length; j++) {
-										if (ret[j] == null) {
-											logger.log(Level.WARNING, "put() failed: " + reqs[j].getKey());
-										}
+								for (int k = 0; k < reqs.length; k++) {
+									if (ret[k] == null) {
+										logger.log(Level.WARNING, "put() failed: " + reqs[j].getKey());
 									}
 								}
 							}
-						}	// if (keys != null)
-
-						// sleep
-						double playRatio = config.getReputIntervalPlayRatio();
-						double intervalRatio = 1.0 - playRatio + (playRatio * 2.0 * rnd.nextDouble());
-						long sleepPeriod = (long)(interval * intervalRatio);
-
-						if (config.getUseTimerInsteadOfThread()) {
-							timer.schedule(this, Timer.currentTimeMillis() + sleepPeriod, true /*isDaemon*/);
-							return;
 						}
-						else {
-							Thread.sleep((long)(sleepPeriod));
-						}
-					}	// for (int i = 0; i < numOfSet)
+					}	// if (keys != null)
+
+					// sleep
+					double playRatio = config.getReputIntervalPlayRatio();
+					double intervalRatio = 1.0 - playRatio + (playRatio * 2.0 * rnd.nextDouble());
+					long sleepPeriod = (long)(interval * intervalRatio);
+
+					if (config.getUseTimerInsteadOfThread()) {
+						timer.schedule(this, Timer.currentTimeMillis() + sleepPeriod, true /*isDaemon*/);
+						return;
+					}
+					else {
+						Thread.sleep((long)(sleepPeriod));
+					}
 				}	// while (true)
 			}
 			catch (InterruptedException e) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2010 National Institute of Advanced Industrial Science
+ * Copyright 2006-2010,2013 National Institute of Advanced Industrial Science
  * and Technology (AIST), and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,7 @@ public class DHTConfiguration extends HighLevelServiceConfiguration {
 	public final static boolean DEFAULT_DO_REPUT_ON_REPLICAS = false;
 	public final static boolean DEFAULT_DO_REPUT_ON_REQUESTER = false;
 	public final static int[] DEFAULT_REPUT_PARAMS =
-		{ 3 * 1000 /*msec*/, 10 /*keys*/, 10 /*intervals*/};
+		{ 5 * 1000 /*msec*/, 10 /*keys*/};
 	public final static double DEFAULT_REPUT_INTERVAL_PLAY_RATIO = 0.2;
 	public final static boolean DEFAULT_USE_TIMER_INSTEAD_OF_THREAD = true;
 
