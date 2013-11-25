@@ -1,3 +1,8 @@
+2013-11-25  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/routing/impl/AbstractRoutingDriver.java
+	'-i' option of owdhtshell and other commands works again.
+
 2013-11-02  Kazuyuki Shudo  <shudo@computer.org>
 
 	* src/ow/dht/{impl/ChurnTolerantDHTImpl,DHTConfiguration}.java

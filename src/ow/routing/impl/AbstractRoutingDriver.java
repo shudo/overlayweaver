@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2012 National Institute of Advanced Industrial Science
+ * Copyright 2006-2013 National Institute of Advanced Industrial Science
  * and Technology (AIST), and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -123,7 +123,7 @@ public abstract class AbstractRoutingDriver implements RoutingRuntime, RoutingSe
 			this.selfIDAddressPair = IDAddressPair.getIDAddressPair(idSizeInByte, selfAddr);
 		}
 
-		this.selfAddressHashCode = selfAddr.hashCode();
+		this.selfAddressHashCode = this.selfIDAddressPair.hashCode();
 
 		this.receiver.setSelfAddress(this.selfIDAddressPair);
 		// The internal MessagingAddress of MessagingReceiver changes to an IDAddressPair here.
