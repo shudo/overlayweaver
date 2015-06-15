@@ -47,8 +47,8 @@
 	<property name="jnlp.src.dir" value="${main.src.dir}/jnlp"/>
 	<property name="target.jnlp.dir" value="${target.dir}/jnlp"/>
 	<property name="main.signed.jar" value="${target.jnlp.dir}/overlayweaver-signed.jar"/>
-	<property name="cli.jar" value="${lib.dir}/commons-cli-1.2.jar"/>
-	<property name="cli.signed.jar" value="${target.jnlp.dir}/commons-cli-1.2-signed.jar"/>
+	<property name="cli.jar" value="${lib.dir}/commons-cli-1.3.jar"/>
+	<property name="cli.signed.jar" value="${target.jnlp.dir}/commons-cli-1.3-signed.jar"/>
 	<property name="jnlp.codebase" value="http://www.shudo.net/owdemo/"/>
 
 	<!-- main classes -->
@@ -62,7 +62,7 @@
 
 	<!-- classpath -->
 	<path id="cli.classpath">
-		<pathelement location="${lib.dir}/commons-cli-1.2.jar"/>
+		<pathelement location="${lib.dir}/commons-cli-1.3.jar"/>
 	</path>
 	<path id="je.classpath">
 		<pathelement location="${lib.dir}/je-6.3.8.jar"/>
@@ -73,7 +73,7 @@
 		<pathelement location="${lib.dir}/ws-commons-util-1.0.2.jar"/>
 	</path>
 	<path id="jetty.classpath">
-		<pathelement location="${lib.dir}/servlet-api-3.0.jar"/>
+		<pathelement location="${lib.dir}/servlet-api-3.1.jar"/>
 	</path>
 	<path id="upnp.classpath">
 		<pathelement location="${lib.dir}/clink200.jar"/>
