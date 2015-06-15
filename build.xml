@@ -107,6 +107,7 @@
 	<fileset dir="${basedir}" id="git.file" defaultexcludes="no">
 		<include name=".git/**"/>
 		<include name=".git"/>
+		<include name=".gitignore"/>
 	</fileset>
 
 	<!-- targets -->
