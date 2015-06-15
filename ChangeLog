@@ -1,3 +1,8 @@
+2015-06-15  Kazuyuki Shudo  <shudo@computer.org>
+
+	* src/ow/tool/dhtshell/XMLRPCServer.java
+	Uses IPInfoDB API v3.
+
 2015-06-14  Kazuyuki Shudo  <shudo@computer.org>
 
 	* lib/commons-cli-*.jar

@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2010,2012 Kazuyuki Shudo, and contributors.
+ * Copyright 2006-2010,2012,2015 Kazuyuki Shudo, and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -462,15 +462,15 @@ public final class XmlRpcDHTServer implements Interruptible {
 				wtr.println("  var script;");
 				wtr.println("  for (var i = 0; i < ipAddresses.length; i++) {");
 				wtr.println("    script = document.createElement('script');");
-				wtr.println("    script.src = 'http://api.ipinfodb.com/v2/ip_query.php?key=" + ipInfoDBAPIKey + "&output=json&callback=addNode&ip=' + ipAddresses[i];");
+				wtr.println("    script.src = 'http://api.ipinfodb.com/v3/ip-city/?key=" + ipInfoDBAPIKey + "&format=json&callback=addNode&ip=' + ipAddresses[i];");
 				wtr.println("    document.body.appendChild(script);");
 				wtr.println("  }");
 				wtr.println("}");
 				wtr.println();
 				wtr.println("function addNode(geoDict) {");
-				wtr.println("  if (geoDict['Status'] == 'OK') {");
-				wtr.println("    var latlng = new google.maps.LatLng(geoDict['Latitude'], geoDict['Longitude']);");
-				wtr.println("    var index = nodeIndices[geoDict['Ip']];");
+				wtr.println("  if (geoDict['statusCode'] == 'OK') {");
+				wtr.println("    var latlng = new google.maps.LatLng(geoDict['latitude'], geoDict['longitude']);");
+				wtr.println("    var index = nodeIndices[geoDict['ipAddress']];");
 				wtr.println("    if (nodes[index] == null) nodeCount++;");
 				wtr.println("    nodes[index] = latlng;");
 				wtr.println();
@@ -496,12 +496,12 @@ public final class XmlRpcDHTServer implements Interruptible {
 				wtr.println("      });");
 				wtr.println("    }");
 				wtr.println();
-				wtr.println("    var contentString = '[' + index + '] <tt>' + geoDict['Ip'] + '</tt>:'");
+				wtr.println("    var contentString = '[' + index + '] <tt>' + geoDict['ipAddress'] + '</tt>:'");
 				wtr.println("    var s;");
-				wtr.println("    s = geoDict['City']; if (s != null && s.length > 0) contentString += '<br>' + s;");
-				wtr.println("    s = geoDict['RegionName']; if (s != null && s.length > 0) contentString += '<br>' + s;");
-				wtr.println("    s = geoDict['CountryName']; if (s != null && s.length > 0) contentString += '<br>' + s;");
-				wtr.println("    s = geoDict['CountryCode']; if (s != null && s.length > 0) contentString += ' <img src=\"http://ipinfodb.com/img/flags/' + s.toLowerCase() + '.gif\">'");
+				wtr.println("    s = geoDict['cityName']; if (s != null && s.length > 0) contentString += '<br>' + s;");
+				wtr.println("    s = geoDict['regionName']; if (s != null && s.length > 0) contentString += '<br>' + s;");
+				wtr.println("    s = geoDict['countryName']; if (s != null && s.length > 0) contentString += '<br>' + s;");
+				wtr.println("    s = geoDict['countryCode']; if (s != null && s.length > 0) contentString += ' <img src=\"http://ipinfodb.com/img/flags/' + s.toLowerCase() + '.gif\">'");
 				wtr.println("    var infoWindow = new google.maps.InfoWindow({");
 				wtr.println("      content: contentString");
 				wtr.println("    });");
