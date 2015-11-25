@@ -6,7 +6,7 @@ set LIB_DIR=%OW_HOME%\lib
 set TARGET_DIR=%OW_HOME%\target
 set BUILD_DIR=%OW_HOME%\build
 
-set CLASSPATH="%BUILD_DIR%;%TARGET_DIR%\overlayweaver.jar;%LIB_DIR%\je-6.3.8.jar;%LIB_DIR%\commons-cli-1.3.jar;%LIB_DIR%\clink200.jar"
+set CLASSPATH="%BUILD_DIR%;%TARGET_DIR%\overlayweaver.jar;%LIB_DIR%\je-6.3.8.jar;%LIB_DIR%\commons-cli-1.3.1.jar;%LIB_DIR%\clink200.jar"
 set LOGGING_CONFIG="%BIN_DIR%\logging.properties"
 
 set JVM_OPTION=-Xss80k
