@@ -1,5 +1,8 @@
 2015-11-25  Kazuyuki Shudo  <shudo@computer.org>
 
+	* lib/{servlet-api-*,jetty-*}.jar
+	Jetty was updated from 9.2.11 to 9.3.6.
+
 	* lib/commons-cli-*.jar
 	Apache Commons CLI was updated from 1.3 to 1.3.1.
 
