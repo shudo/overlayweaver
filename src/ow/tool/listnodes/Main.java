@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Kazuyuki Shudo, and contributors.
+ * Copyright 2007,2015 Kazuyuki Shudo, and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 
 import ow.id.ID;
 import ow.messaging.MessageReceiver;
@@ -56,7 +56,7 @@ public class Main {
 		opts.addOption("t", "transport", true, "transpoft, UDP or TCP");
 		opts.addOption("s", "selfipaddress", true, "self IP address (and port)");
 
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
 			cmd = parser.parse(opts, args);

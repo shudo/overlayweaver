@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2009 National Institute of Advanced Industrial Science
+ * Copyright 2006-2009,2015 National Institute of Advanced Industrial Science
  * and Technology (AIST), and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 
 import ow.ipmulticast.IPMulticast;
 import ow.ipmulticast.igmpd.IGMPDaemon;
@@ -86,7 +86,7 @@ public class Main extends AbstractMcastBasedTool {
 		Options opts = this.getInitialOptions();
 		opts.addOption("p", "port", true, "port number");
 
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
 			cmd = parser.parse(opts, args);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2008,2012 National Institute of Advanced Industrial Science
+ * Copyright 2006-2008,2012,2015 National Institute of Advanced Industrial Science
  * and Technology (AIST), and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 
 import ow.messaging.util.AccessController;
 import ow.tool.emulator.EmulatorControllable;
@@ -115,7 +115,7 @@ public final class Main implements EmulatorControllable {
 		opts.addOption("t", "transport", true, "transport, UDP or TCP");
 		opts.addOption("N", "no-upnp", false, "disable UPnP address port mapping");
 
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
 			cmd = parser.parse(opts, args);

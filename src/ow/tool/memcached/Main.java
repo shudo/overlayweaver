@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2009,2012 Kazuyuki Shudo, and contributors.
+ * Copyright 2008-2009,2012,2015 Kazuyuki Shudo, and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 
 import ow.dht.DHTConfiguration;
 import ow.dht.DHTFactory;
@@ -158,7 +158,7 @@ public final class Main extends AbstractDHTBasedTool<Item>
 		opts.addOption("A", "acl", true, "access control list file");
 		opts.addOption("n", "disablestdin", false, "disable standard input");
 
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
 			cmd = parser.parse(opts, args);

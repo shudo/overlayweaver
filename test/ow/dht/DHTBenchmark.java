@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2009,2012 Kazuyuki Shudo, and contributors.
+ * Copyright 2007-2009,2012,2015 Kazuyuki Shudo, and contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 
 import ow.id.ID;
 import ow.messaging.Signature;
@@ -70,7 +70,7 @@ public class DHTBenchmark extends AbstractDHTBasedTool<String> {
 		Options opts = this.getInitialOptions();
 		opts.addOption("b", "benchmark", true, "do benchmark");
 
-		CommandLineParser parser = new PosixParser();
+		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
 			cmd = parser.parse(opts, args);
