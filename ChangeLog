@@ -1,5 +1,8 @@
 2015-11-25  Kazuyuki Shudo  <shudo@computer.org>
 
+	* lib/je-*.jar, txt/LICENSE.je-*
+	Berkeley DB Java Edition was updated from 6.3.8 to 6.4.9.
+
 	* lib/{servlet-api-*,jetty-*}.jar
 	Jetty was updated from 9.2.11 to 9.3.6.
 
