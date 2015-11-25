@@ -1,5 +1,7 @@
 2015-11-25  Kazuyuki Shudo  <shudo@computer.org>
 
+	* 0.10.5 released.
+
 	* lib/je-*.jar, txt/LICENSE.je-*
 	Berkeley DB Java Edition was updated from 6.3.8 to 6.4.9.
 
