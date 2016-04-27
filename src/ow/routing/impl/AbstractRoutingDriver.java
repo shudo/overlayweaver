@@ -294,7 +294,7 @@ public abstract class AbstractRoutingDriver implements RoutingRuntime, RoutingSe
 	//
 
 	/**
-	 * An utility method for {@link RoutingRuntime RoutingRuntime} users.
+	 * A utility method for {@link RoutingRuntime RoutingRuntime} users.
 	 * Confirm whether the target is alive or not by sending a PING message.
 	 */
 	public boolean ping(MessageSender sender, IDAddressPair target) throws IOException {

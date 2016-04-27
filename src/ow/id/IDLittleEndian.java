@@ -258,7 +258,7 @@ public final class IDLittleEndian implements java.io.Externalizable, Comparable<
 	}
 
 	/**
-	 * An utility method which parses an ID specified by a string or a hexadecimal number.
+	 * A utility method which parses an ID specified by a string or a hexadecimal number.
 	 * A string is converted the corresponding ID by being hashed with SHA1.
 	 */
 	public static IDLittleEndian parseID(String arg, int size) {

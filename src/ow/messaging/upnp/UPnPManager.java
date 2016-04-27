@@ -33,7 +33,7 @@ import org.cybergarage.upnp.device.DeviceChangeListener;
 import org.cybergarage.xml.parser.JaxpParser;
 
 /**
- * An utility to establish address and port mappings on an Internet router
+ * A utility to establish address and port mappings on an Internet router
  * with UPnP protocol.
  */
 public final class UPnPManager {

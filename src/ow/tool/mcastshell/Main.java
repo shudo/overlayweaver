@@ -60,7 +60,7 @@ import ow.tool.util.toolframework.AbstractMcastBasedTool;
 
 /**
  * The main class of Mcast shell server.
- * This shell is an utility to use/test Mcast.
+ * This shell is a utility to use/test Mcast.
  */
 public final class Main extends AbstractMcastBasedTool
 		implements EmulatorControllable {

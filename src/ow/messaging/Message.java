@@ -81,12 +81,12 @@ public abstract class Message implements Serializable {
 		return this.tag;
 	}
 
-	// an utility method
+	// a utility method
 	public String getName() {
 		return MessageDirectory.getName(this.tag);
 	}
 
-	// an utility method
+	// a utility method
 	public boolean getToBeReported() {
 		return MessageDirectory.getToBeReported(this.tag);
 	}
@@ -157,7 +157,7 @@ public abstract class Message implements Serializable {
 	}
 
 	/**
-	 * This is an utility method which writes this Message into a byte stream.
+	 * This is a utility method which writes this Message into a byte stream.
 	 */
 	public ByteBuffer encode(ByteChannel out) throws IOException {
 		logger.log(Level.INFO, "tag:" + MessageDirectory.getName(this.tag));
@@ -245,14 +245,14 @@ public abstract class Message implements Serializable {
 	}
 
 	/**
-	 * This an utility method which reads a Message from the given input stream.
+	 * This is a utility method which reads a Message from the given input stream.
 	 */
 	public static Message decode(SocketChannel in) throws IOException {
 		return decode(in, -1L);
 	}
 
 	/**
-	 * This an utility method which reads a Message from the given input stream.
+	 * This is a utility method which reads a Message from the given input stream.
 	 */
 	public static Message decode(SocketChannel in, long timeout) throws IOException {
 		// read header

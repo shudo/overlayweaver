@@ -251,7 +251,7 @@ public final class ID implements java.io.Externalizable, Comparable<ID> {
 	}
 
 	/**
-	 * An utility method which parses an ID specified by a string or a hexadecimal number.
+	 * A utility method which parses an ID specified by a string or a hexadecimal number.
 	 * A string is converted the corresponding ID by being hashed with SHA1.
 	 */
 	public static ID parseID(String arg, int size) {

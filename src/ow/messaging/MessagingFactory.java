@@ -70,7 +70,7 @@ public final class MessagingFactory {
 	/**
 	 * Return a messaging provider associated to the given name.
 	 * The name should be one of the following names: "TCP", "UDP" or "Emulator".
-	 * There is an utility class {@link Signature Signature} to generate a signature.
+	 * There is a utility class {@link Signature Signature} to generate a signature.
 	 *
 	 * @param messagingType name of a messaging provider.
 	 * @param messageSignature signature embedded to every message. 

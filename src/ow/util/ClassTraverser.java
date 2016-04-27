@@ -31,7 +31,7 @@ import com.sun.org.apache.bcel.internal.classfile.ConstantPool;
 import com.sun.org.apache.bcel.internal.classfile.JavaClass;
 
 /**
- * An utility to traverse class dependency.
+ * A utility to traverse class dependency.
  */
 public final class ClassTraverser {
 	private final Pattern pattern;

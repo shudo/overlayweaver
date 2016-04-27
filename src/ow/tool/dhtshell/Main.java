@@ -58,7 +58,7 @@ import ow.tool.util.toolframework.AbstractDHTBasedTool;
 
 /**
  * The main class of DHT shell server.
- * This shell is an utility to use/test a DHT.
+ * This shell is a utility to use/test a DHT.
  */
 public final class Main extends AbstractDHTBasedTool<String>
 		implements EmulatorControllable {

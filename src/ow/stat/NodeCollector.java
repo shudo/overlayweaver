@@ -21,7 +21,7 @@ import java.util.Set;
 import ow.id.IDAddressPair;
 
 /**
- * An utility this class collects all nodes on an overlay.
+ * A utility this class collects all nodes on an overlay.
  */
 public interface NodeCollector extends Runnable {
 	public Set<IDAddressPair> investigate();

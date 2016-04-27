@@ -36,7 +36,7 @@ import ow.routing.impl.message.RecRouteInvokeMessage;
 import ow.routing.impl.message.RecRouteNoneMessage;
 
 /**
- * An utility to check the size of a message.
+ * A utility to check the size of a message.
  * This class prints the size of a message and serializes it into a file. 
  */
 public class MessageSerializingUtil {

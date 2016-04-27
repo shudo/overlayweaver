@@ -24,7 +24,7 @@ import ow.messaging.upnp.Mapping;
 import ow.messaging.upnp.UPnPManager;
 
 /**
- * An utility class to establish a UPnP address port mapping.
+ * A utility class to establish a UPnP address port mapping.
  */
 public final class UPnPAddressPortMapper implements Runnable {
 	private String internalAddr;

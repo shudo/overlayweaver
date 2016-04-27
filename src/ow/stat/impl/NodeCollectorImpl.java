@@ -39,7 +39,7 @@ import ow.util.concurrent.ExecutorBlockingMode;
 import ow.util.concurrent.SingletonThreadPoolExecutors;
 
 /**
- * An utility this class collects all nodes on an overlay.
+ * A utility this class collects all nodes on an overlay.
  */
 public class NodeCollectorImpl implements NodeCollector {
 	private final static Logger logger = Logger.getLogger("statcollector");

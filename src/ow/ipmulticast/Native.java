@@ -20,7 +20,7 @@ package ow.ipmulticast;
 import java.io.IOException;
 
 /**
- * An utility class holding native methods.
+ * A utility class holding native methods.
  */
 class Native {
 	private final static String NATIVE_LIB = "owmcast";
